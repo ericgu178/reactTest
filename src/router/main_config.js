@@ -1,9 +1,13 @@
-import index from '../views/index/index'
-import a2 from '../views/test2/a2'
+import index from '../views/index';
+import p from '../views/p';
+import about from '../views/about';
+import archive from '../views/archive'
 
 const routes = [
-    { path: '/index', name: 'index', component: index},
-    { path: '/a2', exact: true,  name: 'a2', component: a2},
+    { path: '/index', name: '首页', component: index},
+    { path: '/about' , name : '关于', component: about},
+    { path: '/archive', name: '归档', component: archive},
+    { path: '/p', exact: true,  name: 'p', component: p},
 ]
 
 // 路由

@@ -1,10 +1,14 @@
+.ant-layout-header {
+    background:#000
+}
+
 .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.5);
     margin: 16px;
     width:200px;
     position: absolute;
-    right:0;
+    right:50px;
 }
 .wai_logo {
     height: 100%;
@@ -14,12 +18,21 @@
 .wai_center {
     height: 100%;
     width: 50%;
+    margin-left:2vh;
 }
 .wai_search {
     width: 20%;
+    display:flex;
+    align-items: center;
+    margin-right:2vh;
 }
 .header {
     display:flex;
     justify-content: center;
-    background: #fff;
+    /* background: #000 !important; */
+}
+
+.ant-menu {
+    background:#001529 !important;
+    color:#fff !important;
 }

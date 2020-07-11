@@ -4,26 +4,29 @@ import { Layout } from "antd";
 import { UserOutlined, VideoCameraOutlined,StepBackwardOutlined } from '@ant-design/icons';
 import Menus from "./common/menu";
 import Router from "../router/index";
+import Search from "./common/search"
 const menus = [{
-    path:'/a',
-    title:'父亲',
+    path:'/index',
+    title:'首页',
     icon:<StepBackwardOutlined/>,
-    subs:[{
-        path:'/a2',
-        title:'儿子',
-        icon:<VideoCameraOutlined/>,
-        subs:[{
-            path:'/index',
-            title:'孙子',
-            icon:<VideoCameraOutlined/>,
-        }]
-    }]
 },{
-    path:'/a2',
-    title:'woca',
+    path:'/about',
+    title:'关于',
+    icon:<UserOutlined/>,
+},{
+    path:'/other',
+    title:'其他',
+    icon:<VideoCameraOutlined/>,
+},{
+    path:'/archive',
+    title:'归档',
+    icon:<UserOutlined/>,
+},{
+    path:'/',
+    title:'仓库',
     icon:<UserOutlined/>,
 }]
-const {Header,Content,Sider,Footer} = Layout;
+const {Header,Content,Footer} = Layout;
 
 
 class Main extends React.Component {
@@ -35,10 +38,10 @@ class Main extends React.Component {
                         <div className="logo" />
                     </div>
                     <div className="wai_center">
-                        <Menus mode="horizontal" menus={menus} />
+                        <Menus mode="horizontal" theme="light" menus={menus} />
                     </div>
                     <div className="wai_search">
-                        <Menus mode="horizontal" menus={menus} />
+                        <Search/>
                     </div>
                 </Header>
                     <Content>
