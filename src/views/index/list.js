@@ -12,6 +12,7 @@ class list extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this)
         this.getContent()
         this.setState({contentLoading:false})
     }
@@ -28,10 +29,10 @@ class list extends React.Component {
             result.push({
                 href: `/p/${item.id}`,
                 title: item.blog_title,
-                description:item.blog_describe,
+                description:item.blog_describe.length > 120 ? item.blog_describe : item.blog_content.substr(0,200),
                 create_time:item.create_time,
                 reads:item.reads,
-                img:`https://ericgu178.com/${item.material_id.filepath}`,
+                img:`${window._.baseUrl}/${item.material_id.filepath}`,
                 tags:tags.join(',')
             })
         })
@@ -75,7 +76,7 @@ class list extends React.Component {
                                     <IconText icon={TagOutlined} text={item.tags} key="list-vertical-like-tag" />,
                                 ]}
                                 extra={
-                                    <img draggable="false" width={272} alt={item.img} src={item.img}/>
+                                    <img draggable="false" style={{objectFit:'cover',paddingRight:'1vh'}} width={272} height="100%" alt={item.img} src={item.img}/>
                                 }
                             >
 
