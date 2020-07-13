@@ -1,0 +1,104 @@
+import React from 'react'
+import { List , Space , Skeleton  } from 'antd'; 
+import { ClockCircleOutlined, EyeOutlined , TagOutlined } from '@ant-design/icons';
+import {getContent} from "../../api/index";
+class list extends React.Component {
+    state = {
+        listData:[],
+        loading:true,
+        contentLoading:true,
+        pageSize:10,
+        pageTotal:0
+    }
+
+    componentDidMount() {
+        this.getContent()
+        this.setState({contentLoading:false})
+    }
+
+    async getContent() {
+        let data = await getContent()
+        this.setState({loading:false})
+        const result = [];
+        data.filter(item=>{
+            const tags = [];
+            item.label_pk_ids.filter(tag=>{
+                tags.push(tag.label_name)
+            })
+            result.push({
+                href: `/p/${item.id}`,
+                title: item.blog_title,
+                description:item.blog_describe,
+                create_time:item.create_time,
+                reads:item.reads,
+                img:`https://ericgu178.com/${item.material_id.filepath}`,
+                tags:tags.join(',')
+            })
+        })
+
+        this.setState({listData:result,pageTotal:result.length})
+    }
+
+    onChange(page) {
+        console.log(page)
+    }
+
+    render() {
+        const listData = this.state.listData;
+        const IconText = ({ icon, text}) => (
+            <Space>
+                {React.createElement(icon)}
+                {text}
+            </Space>
+        );
+        return (
+            <>
+                    <List
+                        loading={this.state.loading}
+                        itemLayout="vertical"
+                        size="large"
+                        pagination={{
+                            onChange: this.onChange,
+                            pageSize: this.state.pageSize,
+                            total: this.state.pageTotal
+                        }}
+                        dataSource={listData}
+                        renderItem={item => (
+                            <Skeleton loading={this.state.contentLoading} title active avatar >
+
+                            <List.Item
+                                style={styles.list}
+                                key={item.title}
+                                actions={[
+                                    <IconText icon={ClockCircleOutlined} text={item.create_time} key="list-vertical-like-o" />,
+                                    <IconText icon={EyeOutlined} text={item.reads} key="list-vertical-message" />,
+                                    <IconText icon={TagOutlined} text={item.tags} key="list-vertical-like-tag" />,
+                                ]}
+                                extra={
+                                    <img draggable="false" width={272} alt={item.img} src={item.img}/>
+                                }
+                            >
+
+                            <List.Item.Meta
+                                title={<a style={{cursor:'pointer',color:'#000',fontSize:'20px',fontWeight:'bold'}} href={item.href}>{item.title}</a>}
+                                description={item.description}
+                            />
+                            </List.Item>
+                            </Skeleton>
+                        )}
+                    />
+            </>
+        )
+    }
+}
+
+
+const styles = {
+    list:{
+        background:'#fff'
+    },
+    meta:{
+        cursor:'pointer'
+    }
+}
+export default list

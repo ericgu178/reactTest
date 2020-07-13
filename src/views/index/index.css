@@ -1,0 +1,18 @@
+.main_content {
+    display:flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.main_content .left {
+    width: 65%;
+    height: 100%;
+}
+
+.main_content .right {
+    margin-left:2vh;
+    width: 35%;
+    height: 300px;
+    background:#fff;
+}

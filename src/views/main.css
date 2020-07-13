@@ -36,3 +36,10 @@
     background:#001529 !important;
     color:#fff !important;
 }
+
+.main_center {
+    height: 100%;
+    width:66%;
+    margin:2vh auto;
+    position: relative;
+}

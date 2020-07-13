@@ -4,7 +4,7 @@ import { Layout } from "antd";
 import { UserOutlined, VideoCameraOutlined,StepBackwardOutlined } from '@ant-design/icons';
 import Menus from "./common/menu";
 import Router from "../router/index";
-import Search from "./common/search"
+import Search from "./common/search";
 const menus = [{
     path:'/index',
     title:'首页',
@@ -44,12 +44,12 @@ class Main extends React.Component {
                         <Search/>
                     </div>
                 </Header>
-                    <Content>
-                        <div className="site-layout-background" style={{ padding: 24, minHeight: 600, backgroundColor:'#0f0'}}>
-                            <Router />
-                        </div>
-                    </Content>
-                    <Footer style={{ textAlign: 'center',backgroundColor:'skyblue' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Content>
+                    <div className="main_center" style={{ padding: 10, minHeight: 600 ,backgroundColor:'rgba(0,0,0,0)'}}>
+                        <Router />
+                    </div>
+                </Content>
+                <Footer style={{ textAlign: 'center',backgroundColor:'skyblue' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </Layout>
         )
     }
