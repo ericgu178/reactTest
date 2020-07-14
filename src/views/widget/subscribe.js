@@ -1,9 +1,9 @@
 // 关注
 import React from "react";
-import {Card} from "antd";
+import { Card } from "antd";
 class Subscribe extends React.Component {
     state = {
-        title:'关注我的公众号'
+        title: '关注我的公众号'
     }
     render() {
         return (

@@ -1,9 +1,9 @@
-import {getRequest,postRequest} from "../libs/axios"
+import { getRequest, postRequest } from "../libs/axios"
 
 export const getContent = params => {
-    return getRequest('/index/index/getIndex',params)
+    return getRequest('/index/index/getIndex', params)
 }
 
-export const getMenus = params => {
-    return getRequest('/admin/menu/index',params)
+export const getTag = params => {
+    return getRequest('/index/index/getTag', params)
 }

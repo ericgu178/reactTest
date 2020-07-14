@@ -1,31 +1,35 @@
 // 标签云
-import React from "react"
-import {Tag,Card} from "antd"
+import React from "react";
+import { Tag, Card } from "antd";
+import { getTag } from "../../api/index"
 class TagCloud extends React.Component {
     state = {
-        title:'标签云',
-        data:[]
+        title: '标签云',
+        data: []
     }
     componentDidMount() {
-        this.setState({data:[{color:'magenta',title:'sasdass'},
-        {color:'red',title:'red'},
-        {color:'volcano',title:'volcano'},
-        {color:'magenta',title:'magenta'},
-        {color:'orange',title:'orange'},
-        {color:'pink',title:'ssssasdasdaasdasd'}]
-        })
+        this.getContent();
     }
     async getContent() {
-
+        let result = await getTag();
+        const data = [];
+        result.data.filter(item => {
+            data.push({
+                id: item.id,
+                color: item.color,
+                title: item.label_name
+            })
+        })
+        this.setState({ data: data })
     }
     // 跳转 tag 页
-    onChangeTag (item) {
+    onChangeTag(item) {
         console.log(item)
     }
     render() {
-        const tags = this.state.data.map(item=>{
+        const tags = this.state.data.map(item => {
             return (
-                <Tag onClick={this.onChangeTag.bind(this,item)} style={{marginBottom:'1vh'}} key={item.title} color={item.color}><a href="javacript:;" style={{color:item.color}}>{item.title}</a></Tag>
+                <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
             )
         })
         return (

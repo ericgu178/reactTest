@@ -15,16 +15,16 @@ class index extends React.Component {
         return (
             <>
                 <div className="lunbotu">
-                    <CarouselDom/>
+                    <CarouselDom />
                 </div>
                 <div className="main_content">
                     <div className="left">
-                        <List/>
+                        <List />
                     </div>
                     <div className="right">
-                        <TopViews/>
-                        <TagCloud/>
-                        <Subscribe/>
+                        <TopViews />
+                        <TagCloud />
+                        <Subscribe />
                     </div>
                 </div>
             </>
