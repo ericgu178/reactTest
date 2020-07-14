@@ -1,5 +1,7 @@
 import React from 'react'
 import { List , Space , Skeleton  } from 'antd'; 
+import {withRouter} from 'react-router-dom';
+
 import { ClockCircleOutlined, EyeOutlined , TagOutlined } from '@ant-design/icons';
 import {getContent} from "../../api/index";
 class list extends React.Component {
@@ -17,11 +19,11 @@ class list extends React.Component {
         this.setState({contentLoading:false})
     }
 
-    async getContent() {
-        let data = await getContent()
+    async getContent(search = {}) {
+        let data = await getContent(search)
         this.setState({loading:false})
         const result = [];
-        data.filter(item=>{
+        data.data.filter(item=>{
             const tags = [];
             item.label_pk_ids.filter(tag=>{
                 tags.push(tag.label_name)
@@ -37,10 +39,14 @@ class list extends React.Component {
             })
         })
 
-        this.setState({listData:result,pageTotal:result.length})
+        this.setState({listData:result,pageTotal:data.total})
+    }
+    onClick(item) {
+        return this.props.history.push(item.href)
     }
 
-    onChange(page) {
+    onChange = (page,pageSize) => {
+        this.getContent({page:page})
         console.log(page)
     }
 
@@ -59,7 +65,7 @@ class list extends React.Component {
                         itemLayout="vertical"
                         size="large"
                         pagination={{
-                            onChange: this.onChange,
+                            onChange: this.onChange(this),
                             pageSize: this.state.pageSize,
                             total: this.state.pageTotal
                         }}
@@ -68,6 +74,7 @@ class list extends React.Component {
                             <Skeleton loading={this.state.contentLoading} title active avatar >
 
                             <List.Item
+                                onClick={this.onClick.bind(this,item)}
                                 style={styles.list}
                                 key={item.title}
                                 actions={[
@@ -81,7 +88,7 @@ class list extends React.Component {
                             >
 
                             <List.Item.Meta
-                                title={<a style={{cursor:'pointer',color:'#000',fontSize:'20px',fontWeight:'bold'}} href={item.href}>{item.title}</a>}
+                                title={<h1 style={{cursor:'pointer',color:'#000',fontSize:'20px',fontWeight:'bold'}}>{item.title}</h1>}
                                 description={item.description}
                             />
                             </List.Item>
@@ -96,10 +103,11 @@ class list extends React.Component {
 
 const styles = {
     list:{
-        background:'#fff'
+        background:'#fff',
+        cursor:'pointer'
     },
     meta:{
         cursor:'pointer'
     }
 }
-export default list
+export default withRouter(list);

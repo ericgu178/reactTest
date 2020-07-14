@@ -1,10 +1,13 @@
 import React from 'react'
 import CarouselDom from "./carousel";
 import List from './list';
+import TopViews from '../widget/top_views';
+import TagCloud from '../widget/tag_cloud';
+import Subscribe from '../widget/subscribe';
+
 import './index.css';
 class index extends React.Component {
     state = {
-        message:'123'
     }
     render() {
 
@@ -19,7 +22,9 @@ class index extends React.Component {
                         <List/>
                     </div>
                     <div className="right">
-
+                        <TopViews/>
+                        <TagCloud/>
+                        <Subscribe/>
                     </div>
                 </div>
             </>
@@ -28,4 +33,4 @@ class index extends React.Component {
 }
 
 
-export default index
+export default index;

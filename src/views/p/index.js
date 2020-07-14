@@ -1,19 +1,31 @@
 import React from 'react'
+import Subscribe from '../widget/subscribe';
+import './p.css';
 
-
-class a1 extends React.Component {
+class P extends React.Component {
     state = {
-        message:'321'
+        id:0
     }
+    componentDidMount() {
+        this.setState({id:this.props.match.params.id})
+    }
+
     render() {
-        const message = this.state.message
+        const id = this.state.id
         return (
-            <div> 
-                <h1>{message}</h1>
-            </div>
+            <>
+                <div className="main_content">
+                    <div className="left">
+                        {id}
+                    </div>
+                    <div className="right">
+                        <Subscribe/>
+                    </div>
+                </div>
+            </>
         )
     }
 }
 
 
-export default a1
+export default P;

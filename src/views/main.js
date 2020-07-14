@@ -22,7 +22,7 @@ const menus = [{
     title:'归档',
     icon:<UserOutlined/>,
 },{
-    path:'/',
+    path:'/cangku',
     title:'仓库',
     icon:<UserOutlined/>,
 }]

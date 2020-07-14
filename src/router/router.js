@@ -1,16 +1,30 @@
-import {Route} from "react-router-dom";
+import {Route,Redirect} from "react-router-dom";
 import React from "react";
 
 // 循环渲染当前路由数组中一维数组中的组件 返回的是 Route 路由
 export const RenderRoutes = ({routes}) => {
-    console.log(routes)
     return (
-        routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+        routes.map((route, i) => {
+            if (route.redirect) {
+                return <RedirectWithSubRoutes key={i} {...route} />
+            } else {
+                return <RouteWithSubRoutes key={i} {...route} />
+            }
+        })
     )
 };
 
-// 渲染当前组件
-export const RouteWithSubRoutes = route => (
+// 重定向
+const RedirectWithSubRoutes = route => (
+    <Redirect 
+        exact={route.exact}
+        from={route.from}
+        to={route.to}
+    />
+)
+
+// 路由渲染
+const RouteWithSubRoutes = route => (
     <Route
         path={route.path}
         exact={route.exact}

@@ -12,7 +12,7 @@ ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
             <Switch>
-                <Route path="/" component={index}></Route>
+                <Route path="/" component={index} />
             </Switch>
         </Provider>
     </BrowserRouter>,
