@@ -16,3 +16,24 @@
     width: 32%;
     height: 100%;
 }
+
+.main_content .left .p_content {
+    height: 100%;
+    width: 100%;
+}
+
+.main_content .left .p_content img{
+    display: flex;
+    justify-content: center;
+    width:70%;
+    margin:2vh auto;
+    margin-top:2vh;
+}
+
+.main_content .left .p_comment {
+    height: 100%;
+    width: 100%;
+    margin-top:2vh;
+    background:#000
+}
+
