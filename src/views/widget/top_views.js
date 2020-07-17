@@ -2,7 +2,8 @@
 import React from "react"
 import { List, Card, Skeleton, Space } from 'antd';
 import { ClockCircleOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
-// import {getTopViews} from "../../api/index"
+import { withRouter } from 'react-router-dom';
+import { getTopViews } from "../../api/index"
 class TopViews extends React.Component {
     state = {
         title: '点击排行',
@@ -12,27 +13,17 @@ class TopViews extends React.Component {
 
     // dom加载完毕钓鱼
     componentDidMount() {
-        const data = [
-            {
-                title: 'Ant Design Title 1',
-            },
-            {
-                title: 'Ant Design Title 2 Title Title Title Title Title',
-            },
-            {
-                title: 'Ant Design Title 3',
-            },
-            {
-                title: 'Ant Design Title 4',
-            },
-        ];
-        this.setState({ data: data, loading: false })
+        this.getContent();
+    }
+
+    onClick(id) {
+        return this.props.history.push(`/p/${id}`)
     }
 
     // 获取数据
     async getContent() {
-        // let data = await getTopViews();
-        // this.setState({data:data.result})
+        let result = await getTopViews();
+        this.setState({ data: result.data, loading: false })
     }
     render() {
         return (
@@ -44,17 +35,19 @@ class TopViews extends React.Component {
                             dataSource={this.state.data}
                             renderItem={item => (
                                 <List.Item
-                                    key={item.title}
+                                    key={item.blog_title}
                                     actions={[
                                         <Space key='2'>
-                                            {<ClockCircleOutlined />}
-                                            {200}
+                                            {<EyeOutlined />}
+                                            {item.reads}
                                         </Space>
                                     ]}
                                 >
                                     <List.Item.Meta
-                                        avatar={<img style={{ width: '10vh', height: '100%', objectFit: 'cover' }} alt="logo" src="http://seopic.699pic.com/photo/50035/0520.jpg_wh1200.jpg" />}
-                                        title={<a href="https://ant.design">{item.title.length > 40 ? item.title.substr(0, 40) + '...' : item.title}</a>}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={this.onClick.bind(this, item.id)}
+                                        avatar={<img style={{ width: '10vh', height: '100%', objectFit: 'cover' }} alt="logo" src={window._.baseUrl + item.material_id.filepath} />}
+                                        title={item.blog_title.length > 40 ? item.blog_title.substr(0, 40) + '...' : item.blog_title}
                                     />
                                 </List.Item>
                             )}
@@ -72,4 +65,4 @@ const styles = {
     }
 }
 
-export default TopViews
+export default withRouter(TopViews)

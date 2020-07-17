@@ -21,7 +21,7 @@ class list extends React.Component {
 
     async getContent(search = {}) {
         let data = await getContent(search)
-        this.setState({ loading: false })
+        this.setState({ loading: false, contentLoading: false })
         const result = [];
         data.data.filter(item => {
             const tags = [];
@@ -45,9 +45,9 @@ class list extends React.Component {
         return this.props.history.push(item.href)
     }
 
-    onChange = (page, pageSize) => {
-        // this.getContent({ page: page })
-        console.log(page)
+    onChange = (page) => {
+        this.setState({ loading: true, contentLoading: true })
+        this.getContent({ page: page })
     }
 
     render() {
@@ -65,7 +65,7 @@ class list extends React.Component {
                     itemLayout="vertical"
                     size="large"
                     pagination={{
-                        onChange: this.onChange(this),
+                        onChange: this.onChange.bind(this),
                         pageSize: this.state.pageSize,
                         total: this.state.pageTotal
                     }}
@@ -88,7 +88,7 @@ class list extends React.Component {
                             >
 
                                 <List.Item.Meta
-                                    title={<h1 style={{ cursor: 'pointer', color: '#000', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</h1>}
+                                    title={<span style={{ cursor: 'pointer', color: '#000', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
                                     description={item.description}
                                 />
                             </List.Item>

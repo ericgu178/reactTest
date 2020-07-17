@@ -1,18 +1,38 @@
 import React from 'react';
-import { Carousel } from 'antd';
+import { Carousel, Typography } from 'antd';
+import { getBanner } from "../../api/index";
+import { withRouter } from 'react-router-dom';
+
+const { Title } = Typography;
 
 class carouselDom extends React.Component {
-
+    state = {
+        data: []
+    }
+    async getContent() {
+        let result = await getBanner();
+        this.setState({
+            data: result.data
+        })
+    }
+    componentWillMount() {
+        this.getContent()
+    }
+    onClick(item) {
+        return this.props.history.push(`/p/${item.article_id}`)
+    }
     render() {
-        const carousels = [
-            'https://ericgu178.com//bing/2020/20200711000002.jpg',
-            'https://ericgu178.com//bing/2020/20200710000002.jpg',
-            'https://ericgu178.com//bing/2020/20200703000001.jpg',
-            'https://ericgu178.com//bing/2020/20200708000002.jpg',
-        ].map(item=>{
+        const list = this.state.data;
+        const carousels = list.map(item => {
             return (
-                <div style={{width:'100%',height:'100%'}} key={item}>
-                    <img style={{width:'100%',height:'30vh',objectFit:'cover'}} src={item} alt={item} />
+                <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }} key={item}>
+                    <img onClick={this.onClick.bind(this, item)} style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} src={window._.baseUrl + item.material_id.filepath} alt={item} />
+                    <div style={style.div}>
+                        <Title level={2} style={{ color: '#fff', height: '100%', display: 'flex', alignItems: 'center' }}>
+                            {item.banner_title.substr(0, 10)}
+                            <span style={style.Pornhub}>{item.banner_title.substr(10)}</span>
+                        </Title>
+                    </div>
                 </div>
             )
         })
@@ -25,6 +45,27 @@ class carouselDom extends React.Component {
         )
     }
 }
+const style = {
+    div: {
+        position: 'absolute',
+        top: '60%',
+        width: '100%',
+        height: '8vh',
+        background: 'rgb(0,0,0)',
+        cursor: 'pointer',
+        paddingLeft: '5vh',
+    },
+    Pornhub: {
+        dispaly: 'block',
+        height: '6vh',
+        backgroundColor: 'rgb(254,154,0)',
+        borderRadius: '5px',
+        lineHeight: '6vh',
+        marginLeft: '.5vh',
+        paddingLeft: '1vh',
+        color: '#000'
+        // padding: '1vh'
+    }
+}
 
-
-export default carouselDom;
+export default withRouter(carouselDom);

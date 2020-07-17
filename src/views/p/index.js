@@ -9,6 +9,7 @@ import './p.css';
 import Comment from "./comment";
 import RArticles from "./related_articles";
 import { getP } from "../../api/index";
+import { withRouter } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography
 class P extends React.Component {
@@ -16,11 +17,8 @@ class P extends React.Component {
         data: {},
         html: ''
     }
-    componentWillMount() {
-        this.getContent({ id: this.props.match.params.id });
-    }
     componentDidMount() {
-
+        this.getContent({ id: this.props.match.params.id });
     }
     async getContent(params = {}) {
         let result = await getP(params);
@@ -50,9 +48,9 @@ class P extends React.Component {
         return (
             <>
                 <div className="main_content">
-                    <div className="left" style={styles.left}>
+                    <div className="left">
                         {/* 显示html代码 */}
-                        <div className="p_content">
+                        <div className="p_content" style={styles.left}>
                             <Typography>
                                 <Title level={1} type="warning" >{this.state.data.blog_title}</Title>
                                 <Space>
@@ -88,4 +86,4 @@ const styles = {
         padding: '2vh',
     }
 }
-export default P;
+export default withRouter(P);

@@ -11,3 +11,11 @@ export const getTag = params => {
 export const getP = params => {
     return postRequest('/index/index/getP', params);
 }
+// 获取最高点击数量
+export const getTopViews = params => {
+    return getRequest('/index/index/getTopViews', params)
+}
+
+export const getBanner = params => {
+    return getRequest('/index/index/getBanner_', params)
+}
