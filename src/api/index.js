@@ -19,3 +19,7 @@ export const getTopViews = params => {
 export const getBanner = params => {
     return getRequest('/index/index/getBanner_', params)
 }
+
+export const getArchive = params => {
+    return getRequest('/index/archive/getIndex', params)
+}
