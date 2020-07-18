@@ -1,14 +1,33 @@
 .ant-layout-header {
     background:#000
 }
-
+@font-face {
+    font-family: 'Boink'; 
+    src: url('../assets/fonts/Boink.ttf');	
+}
 .logo {
-    height: 32px;
-    background: rgba(255, 255, 255, 0.5);
-    margin: 16px;
+    height: 2vh;
+    background: #000;
     width:200px;
+    font-weight: bold;
     position: absolute;
+    top:0;
+    font-size:2rem;
+    text-align: center;
     right:50px;
+    font-family: 'Boink';
+    color:#fff;
+    padding:0 0 0 1vh;
+    border-radius: 5px;
+}
+
+.logo_pro {
+    display:inline-block;
+    background:rgb(254,154,0);
+    color:#000;
+    margin-left:1vh;
+    padding:0 1vh;
+    border-radius: 5px;
 }
 .wai_logo {
     height: 100%;
@@ -53,3 +72,4 @@
     height: 100%;
     margin-bottom:2vh
 }
+

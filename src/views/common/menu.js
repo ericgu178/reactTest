@@ -52,7 +52,9 @@ class menu extends React.Component {
         this.setState({ selectKeys: [this.props.location.pathname] })
         // 监听路由
         this.props.history.listen(location => {
-            console.log(location)
+            if (location.pathname === '/cangku') {
+                return window.open(window._.baseUrl + '/onedrive')
+            }
             this.setState({ selectKeys: [location.pathname] })
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
             if (this.props.location.pathname !== location.pathname) {
@@ -100,7 +102,7 @@ class menu extends React.Component {
         return (
             <Menu theme={this.props.theme || "dark"} mode={this.props.mode || "inline"}
                 selectedKeys={this.state.selectKeys}
-                defaultSelectedKeys={['/a1']}
+                defaultSelectedKeys={['/index']}
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
             >

@@ -7,16 +7,17 @@ import './archive.css';
 import { getArchive } from "../../api/index";
 
 /**
- * 关于的页面
+ * 归档
  */
 class Archive extends React.Component {
     state = {
         level: 2,
         data: [],
-        curr: '2020',
+        curr: `${new Date().getFullYear()}`,
         datelist: []
     }
     componentDidMount() {
+        console.log(this.state)
         this.getContent();
     }
     async getContent(params = {}) {
@@ -38,10 +39,10 @@ class Archive extends React.Component {
         const data = this.state.data;
         return (
             <>
-                <div className="main_content">
+                <div className="main_content" style={{ minHeight: '80vh' }}>
                     <div className="left" style={{ display: 'flex', background: '#fff', padding: '2vh', width: '100%', margin: '0 auto' }}>
                         <div style={style.left}>
-                            {date.map(item => (<div style={{
+                            {date.map(item => (<div key={item} style={{
                                 cursor: 'pointer',
                                 textAlign: 'center',
                                 lineHeight: '4vh',
@@ -57,7 +58,7 @@ class Archive extends React.Component {
                         <div style={style.right}>
                             <Timeline mode="alternate">
                                 {data.map((item, key) => (
-                                    <Timeline.Item>
+                                    <Timeline.Item key={key}>
                                         <div style={{ backgroundColor: "#000", borderRadius: '5px', cursor: 'pointer' }} onClick={this.links.bind(this, item)}>
                                             <span style={key % 2 !== 0 ? style.o : style.l}>{key % 2 !== 0 ? item.blog_title.substr(0, 22) + '...' : item.create_time}</span>
                                             <span style={key % 2 === 0 ? style.o : style.l}>{key % 2 === 0 ? item.blog_title.substr(0, 22) + '...' : item.create_time}</span>
