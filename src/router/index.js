@@ -1,17 +1,25 @@
 import React from 'react'
-import {Switch } from 'react-router-dom'
-import {RenderRoutes} from './router'
-import mainrouter from './main_config'
+import { Switch, withRouter, Route, Redirect } from 'react-router-dom'
+import RenderRoutes from './router';
 
+
+import indexs from '../views/index';
+import p from '../views/p';
+import about from '../views/about';
+import archive from '../views/archive';
 
 class index extends React.Component {
-    render () {
+    render() {
         return (
             <Switch>
-                <RenderRoutes routes={mainrouter} />
+                <RenderRoutes path="/index" component={indexs} />
+                <RenderRoutes path="/about" component={about} />
+                <RenderRoutes path="/p/:id" component={p} />
+                <RenderRoutes path="/archive" component={archive} />
+                <Redirect from="/" to="/index" />
             </Switch>
         )
     }
 }
 
-export default index
+export default withRouter(index)

@@ -49,8 +49,10 @@ class menu extends React.Component {
     // 依赖于 DOM 节点的初始化应该放在这里。
     // 如需通过网络请求获取数据，此处是实例化请求的好地方。 相当于 vue 的 mounted 挂载
     componentDidMount() {
+        this.setState({ selectKeys: [this.props.location.pathname] })
         // 监听路由
         this.props.history.listen(location => {
+            console.log(location)
             this.setState({ selectKeys: [location.pathname] })
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
             if (this.props.location.pathname !== location.pathname) {

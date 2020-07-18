@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Typography, Divider, Affix } from 'antd';
+import { Space, Typography, Divider, Affix, Skeleton } from 'antd';
 import { ClockCircleOutlined, EyeOutlined } from '@ant-design/icons';
 import marked from 'marked';
 import hljs from "highlight.js";
@@ -15,7 +15,8 @@ const { Title, Paragraph } = Typography
 class P extends React.Component {
     state = {
         data: {},
-        html: ''
+        html: '',
+        loading: true
     }
     componentDidMount() {
         this.getContent({ id: this.props.match.params.id });
@@ -39,7 +40,8 @@ class P extends React.Component {
         let html = marked(result.data.blog_content);
         this.setState({
             data: result.data,
-            html: html
+            html: html,
+            loading: false
         });
     }
 
@@ -51,17 +53,21 @@ class P extends React.Component {
                     <div className="left">
                         {/* 显示html代码 */}
                         <div className="p_content" style={styles.left}>
-                            <Typography>
-                                <Title level={1} type="warning" >{this.state.data.blog_title}</Title>
-                                <Space>
-                                    <Space><ClockCircleOutlined />{this.state.data.create_time}</Space>
-                                    <Space><EyeOutlined />{this.state.data.reads}</Space>
-                                </Space>
-                                <Divider />
-                                <Paragraph>
-                                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                                </Paragraph>
-                            </Typography>
+                            <Skeleton paragraph={{
+                                rows: 40
+                            }} loading={this.state.loading}>
+                                <Typography>
+                                    <Title level={1} type="warning" >{this.state.data.blog_title}</Title>
+                                    <Space>
+                                        <Space><ClockCircleOutlined />{this.state.data.create_time}</Space>
+                                        <Space><EyeOutlined />{this.state.data.reads}</Space>
+                                    </Space>
+                                    <Divider />
+                                    <Paragraph>
+                                        <div dangerouslySetInnerHTML={{ __html: html }} />
+                                    </Paragraph>
+                                </Typography>
+                            </Skeleton>
                         </div>
                         <div className="p_comment">
                             <Comment />
