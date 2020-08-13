@@ -25,6 +25,9 @@ export const postRequest = (url, params) => {
         transformRequest: [function (data) {
             let ret = '';
             for (let it in data) {
+                if (typeof data[it] === 'object') {
+                    data[it] = JSON.stringify(data[it]);
+                }
                 ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
             }
             ret = ret.substring(0, ret.length - 1);

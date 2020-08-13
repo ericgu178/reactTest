@@ -7,11 +7,8 @@ import Subscribe from '../widget/subscribe';
 
 import './index.css';
 class index extends React.Component {
-    state = {
-    }
+    state = {}
     render() {
-
-        // const message = this.state.message
         return (
             <>
                 <div className="lunbotu">

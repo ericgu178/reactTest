@@ -75,7 +75,7 @@ class list extends React.Component {
 
                             <List.Item
                                 onClick={this.onClick.bind(this, item)}
-                                style={styles.list}
+                                className="list"
                                 key={item.title}
                                 actions={[
                                     <IconText icon={ClockCircleOutlined} text={item.create_time} key="list-vertical-like-o" />,

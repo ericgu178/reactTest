@@ -16,3 +16,10 @@
     width: 32%;
     height: 100%;
 }
+.list {
+    background: #fff;
+    cursor: pointer
+}
+.list:hover {
+    background: #f8f9fa;
+}

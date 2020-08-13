@@ -72,9 +72,13 @@ class P extends React.Component {
                         <div className="p_comment">
                             <Comment />
                         </div>
+                        <Skeleton paragraph={{
+                                rows: 40
+                            }} loading={this.state.loading}>
                         <div className="p_ra">
-                            <RArticles />
+                            <RArticles labelPkIds={this.state.data.label_pk_ids}/>
                         </div>
+                        </Skeleton>
                     </div>
                     <div className="right">
                         <Affix offsetTop={20}>

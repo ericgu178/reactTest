@@ -29,7 +29,7 @@ class TagCloud extends React.Component {
     render() {
         const tags = this.state.data.map(item => {
             return (
-                <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
+                <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
             )
         })
         return (
