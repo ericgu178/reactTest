@@ -7,7 +7,7 @@ const {Search} = Input;
 class SearchDom extends React.Component {
     // 搜索事件
     onSearch (value) {
-        this.props.history.push('/search?q=' + value)
+        this.props.history.push('/search/' + value)
         console.log(value)
     }
     render () {

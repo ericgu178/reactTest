@@ -69,9 +69,9 @@ class P extends React.Component {
                                 </Typography>
                             </Skeleton>
                         </div>
-                        <div className="p_comment">
+                        {/* <div className="p_comment">
                             <Comment />
-                        </div>
+                        </div> */}
                         <Skeleton paragraph={{
                                 rows: 40
                             }} loading={this.state.loading}>

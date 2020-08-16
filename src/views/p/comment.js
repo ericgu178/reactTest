@@ -1,8 +1,11 @@
 import React from 'react';
 import { Comment, Card, Avatar } from 'antd';
 // 评论模块
-const ExampleComment = ({ children }) => (
-    <Comment
+const ExampleComment = ({ children }) => {
+    console.log(children)
+
+    return (
+<Comment
         actions={[<span key="comment-nested-reply-to">Reply to</span>]}
         author={<a>Han Solo</a>}
         avatar={
@@ -20,7 +23,8 @@ const ExampleComment = ({ children }) => (
     >
         {children}
     </Comment>
-);
+    )
+}
 
 
 class CommentDom extends React.Component {

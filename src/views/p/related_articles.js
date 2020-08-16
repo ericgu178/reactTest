@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 
 // 相关文章
 class RArticles extends React.Component {
-    
     state = {
         title: '相关文章',
         loading:true,

@@ -19,7 +19,7 @@ class index extends React.Component {
                     <RenderRoutes path="/about" component={about} />
                     <RenderRoutes path="/p/:id" component={p} />
                     <RenderRoutes path="/archive" component={archive} />
-                    <RenderRoutes path="/search" component={search}/>
+                    <RenderRoutes path="/search/:q" component={search}/>
                     <Redirect from="/" to="/index" />
                 </Switch>
             </div>

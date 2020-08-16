@@ -27,3 +27,7 @@ export const getArchive = params => {
 export const getRelevant = params => {
     return getRequest('/index/index/relevant', params)
 }
+// 搜索
+export const search = params => {
+    return getRequest('/index/index/search', params)
+}

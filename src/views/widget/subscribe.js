@@ -9,7 +9,7 @@ class Subscribe extends React.Component {
         return (
             <div className="widget">
                 <Card title={this.state.title} bordered={false}>
-                    <img alt="公众号图片" draggable={false} src={require('../../assets/images/wx2.jpg')} />
+                    <img alt="公众号图片" style={{width:'100%'}} draggable={false} src={require('../../assets/images/wx2.jpg')} />
                 </Card>
             </div>
         )

@@ -55,6 +55,9 @@ class menu extends React.Component {
             if (location.pathname === '/cangku') {
                 return window.open(window._.baseUrl + '/onedrive')
             }
+            if (location.pathname === '/biying') {
+                return window.open(window._.baseUrl + '/bing/index/index.html')
+            }
             this.setState({ selectKeys: [location.pathname] })
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
             if (this.props.location.pathname !== location.pathname) {

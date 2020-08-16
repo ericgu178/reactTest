@@ -1,8 +1,6 @@
 import React from "react";
 import { Timeline } from "antd";
 import { withRouter } from "react-router-dom";
-import Subscribe from '../widget/subscribe';
-import { ClockCircleOutlined } from '@ant-design/icons';
 import './archive.css';
 import { getArchive } from "../../api/index";
 
