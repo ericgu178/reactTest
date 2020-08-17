@@ -15,7 +15,6 @@ class Archive extends React.Component {
         datelist: []
     }
     componentDidMount() {
-        console.log(this.state)
         this.getContent();
     }
     async getContent(params = {}) {

@@ -38,6 +38,7 @@ class P extends React.Component {
         });
 
         let html = marked(result.data.blog_content);
+        document.title = result.data.blog_title
         this.setState({
             data: result.data,
             html: html,
@@ -69,9 +70,13 @@ class P extends React.Component {
                                 </Typography>
                             </Skeleton>
                         </div>
-                        {/* <div className="p_comment">
-                            <Comment />
-                        </div> */}
+                        <Skeleton paragraph={{
+                                rows: 10
+                            }} loading={this.state.loading}>
+                        <div className="p_comment">
+                            <Comment id={this.props.match.params.id}/>
+                        </div>
+                        </Skeleton>
                         <Skeleton paragraph={{
                                 rows: 40
                             }} loading={this.state.loading}>

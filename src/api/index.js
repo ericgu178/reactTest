@@ -31,3 +31,14 @@ export const getRelevant = params => {
 export const search = params => {
     return getRequest('/index/index/search', params)
 }
+// 获取评论
+export const getComments = params => {
+    return postRequest('/index/index/comments', params)
+}
+
+// 提交评论
+export const submitComment = params => {
+    return postRequest('/index/index/submitComment', params)
+}
+
+
