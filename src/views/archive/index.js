@@ -19,7 +19,6 @@ class Archive extends React.Component {
     }
     async getContent(params = {}) {
         let result = await getArchive(params);
-        console.log(result)
         this.setState({ datelist: result.data, data: result.toyear })
     }
     onClick(item) {

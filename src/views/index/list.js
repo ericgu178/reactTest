@@ -14,7 +14,6 @@ class list extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this)
         this.getContent()
         this.setState({ contentLoading: false })
     }
