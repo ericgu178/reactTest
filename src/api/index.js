@@ -40,5 +40,8 @@ export const getComments = params => {
 export const submitComment = params => {
     return postRequest('/index/index/submitComment', params)
 }
-
+// 检索标签
+export const searchLabelList = params => {
+    return getRequest('/index/index/searchLabelList',params); 
+}
 

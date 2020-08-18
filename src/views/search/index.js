@@ -63,7 +63,7 @@ const style = {
     },
     title:{
         color:'#000',
-        fontSize:'2rem',
+        fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,
         lineHeight: 1.2

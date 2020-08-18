@@ -8,6 +8,7 @@ import p from '../views/p';
 import about from '../views/about';
 import archive from '../views/archive';
 import search from '../views/search';
+import tagArticle from '../views/search/tagArticle';
 
 class index extends React.Component {
     setTitle = title => () => document.title = title;
@@ -22,6 +23,7 @@ class index extends React.Component {
                     <RenderRoutes path="/p/:id" component={p} />
                     <RenderRoutes path="/archive" component={archive} />
                     <RenderRoutes path="/search/:q" component={search}/>
+                    <RenderRoutes path="/t/:id/:title" component={tagArticle}/>
                     <Redirect from="/" to="/index" />
                 </Switch>
             </div>

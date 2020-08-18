@@ -1,7 +1,8 @@
 // 标签云
 import React from "react";
 import { Tag, Card,Tooltip } from "antd";
-import { getTag } from "../../api/index"
+import { getTag } from "../../api/index";
+import { withRouter } from 'react-router-dom';
 class TagCloud extends React.Component {
     state = {
         title: '标签云',
@@ -24,12 +25,12 @@ class TagCloud extends React.Component {
     }
     // 跳转 tag 页
     onChangeTag(item) {
-        console.log(item)
+        this.props.history.push('/t/' + item.id + '/' + item.title)
     }
     render() {
         const tags = this.state.data.map(item => {
             return (
-                <Tooltip title={item.title}>
+                <Tooltip title={item.title} key={item.title}>
                     <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
                 </Tooltip>
             )
@@ -44,4 +45,4 @@ class TagCloud extends React.Component {
     }
 }
 
-export default TagCloud
+export default withRouter(TagCloud);
