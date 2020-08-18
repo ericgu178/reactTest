@@ -1,7 +1,7 @@
 // 点击排行
 import React from "react"
 import { List, Card, Skeleton, Space } from 'antd';
-import { ClockCircleOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
 import { getTopViews } from "../../api/index"
 class TopViews extends React.Component {

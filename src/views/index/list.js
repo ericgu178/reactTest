@@ -98,15 +98,4 @@ class list extends React.Component {
         )
     }
 }
-
-
-const styles = {
-    list: {
-        background: '#fff',
-        cursor: 'pointer'
-    },
-    meta: {
-        cursor: 'pointer'
-    }
-}
 export default withRouter(list);

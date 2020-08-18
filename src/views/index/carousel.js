@@ -48,7 +48,7 @@ class carouselDom extends React.Component {
 const style = {
     div: {
         position: 'absolute',
-        top: '60%',
+        top: '70%',
         width: '100%',
         height: '8vh',
         background: 'rgb(0,0,0)',

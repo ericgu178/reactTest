@@ -1,5 +1,5 @@
 import React from 'react';
-import { Comment, Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
+import { Comment,message, Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
 import { getComments,submitComment} from "../../api/index"
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -99,7 +99,8 @@ class CommentDom extends React.Component {
             comment_content:this.state.value,
             blog_article_id:this.props.id
         }
-        await submitComment(submitData);
+        let res = await submitComment(submitData);
+        message.info(res.msg)
         this.setState({
             submitting: false,
             value:'',

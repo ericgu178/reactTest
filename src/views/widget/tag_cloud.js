@@ -1,6 +1,6 @@
 // 标签云
 import React from "react";
-import { Tag, Card } from "antd";
+import { Tag, Card,Tooltip } from "antd";
 import { getTag } from "../../api/index"
 class TagCloud extends React.Component {
     state = {
@@ -29,7 +29,9 @@ class TagCloud extends React.Component {
     render() {
         const tags = this.state.data.map(item => {
             return (
-                <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
+                <Tooltip title={item.title}>
+                    <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
+                </Tooltip>
             )
         })
         return (
