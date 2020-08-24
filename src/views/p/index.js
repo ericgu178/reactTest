@@ -24,7 +24,6 @@ class P extends React.Component {
     htmlDecode(str) {
          /*4.用正则表达式实现html解码*/
         var s = "";
-        console.log(str);
         if(str.length === 0) return "";
         s = str.replace(/&amp;/g,"&");
         s = s.replace(/&lt;/g,"<");
@@ -54,7 +53,6 @@ class P extends React.Component {
                 return hljs.highlightAuto(code).value;
             }
         });
-        console.log(result.data.blog_content,'123123123')
         let html = marked(result.data.blog_content);
         document.title = result.data.blog_title
         this.setState({
