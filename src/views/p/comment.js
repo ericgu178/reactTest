@@ -1,5 +1,5 @@
 import React from 'react';
-import { Comment,message, Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
+import { Comment,message,Tag , Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
 import { getComments,submitComment} from "../../api/index"
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -10,7 +10,7 @@ const ExampleFatherComments = (item) => {
     return (
         <Comment
             actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,item)}>回复</span>]}
-            author={<a>{item.ip}</a>}
+            author={<a>{item.ip} <Tag>{item.browser}</Tag><Tag>{item.os}</Tag></a>}
             avatar={
                 <Avatar
                     src={require('../../assets/images/user.jpg')}
@@ -33,10 +33,11 @@ const ExampleFatherComments = (item) => {
 // 嵌套评论
 const ExampleSonComments = (item) => {
     return item.children.map((i,k) => {
+        console.log(i)
         return <Comment
                     key={k}
                     actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,i)}>回复</span>]}
-                    author={<a>{i.ip}</a>}
+                    author={<a>{i.ip} <Tag>{i.browser}</Tag><Tag>{i.os}</Tag></a>}
                     avatar={
                         <Avatar
                             src={require('../../assets/images/user.jpg')}

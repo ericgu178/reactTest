@@ -21,10 +21,28 @@ class P extends React.Component {
     componentDidMount() {
         this.getContent({ id: this.props.match.params.id });
     }
+    htmlDecode(str) {
+         /*4.用正则表达式实现html解码*/
+        var s = "";
+        console.log(str);
+        if(str.length === 0) return "";
+        s = str.replace(/&amp;/g,"&");
+        s = s.replace(/&lt;/g,"<");
+        s = s.replace(/&gt;/g,">");
+        s = s.replace(/&nbsp;/g," ");
+        s = s.replace(/&quot;/g,"\"");
+        return s; 
+    }
     async getContent(params = {}) {
         let result = await getP(params);
+        const renderer = {
+            html:html => {
+                return this.htmlDecode(html)
+            }
+        }
+        marked.use({renderer});
         marked.setOptions({
-            renderer: new marked.Renderer(),
+            // renderer: new marked.Renderer(),
             gfm: true,
             pedantic: false,
             sanitize: false,
@@ -36,7 +54,7 @@ class P extends React.Component {
                 return hljs.highlightAuto(code).value;
             }
         });
-
+        console.log(result.data.blog_content,'123123123')
         let html = marked(result.data.blog_content);
         document.title = result.data.blog_title
         this.setState({
