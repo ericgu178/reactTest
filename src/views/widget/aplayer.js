@@ -7,11 +7,9 @@ export default class Aplayer extends React.Component {
       audio:[]
   }
   onPlay = () => {
-    console.log('on play');
   };
 
   onPause = () => {
-    console.log('on pause');
   };
 
   // example of access aplayer instance
@@ -21,7 +19,7 @@ export default class Aplayer extends React.Component {
   componentWillMount() {
     axios({
         method: 'get',
-        url: 'https://bird.ioliu.cn/v1/?url=https://music.163.com/api/playlist/detail?id=2527435393',
+        url: 'https://bird.ioliu.cn/v1/?url=https://music.163.com/api/playlist/detail?id=866762201',
     }).then(response=> {
         if (response.data.code === 200) {
             var audio = response.data.result.tracks.map(item=>({
@@ -38,7 +36,7 @@ export default class Aplayer extends React.Component {
   }
 
   render() {
-    const {audio} = this.state;
+    const audio = [...this.state.audio];
     const props = {
         theme: '#F57F17',
         lrcType: 3,
@@ -48,15 +46,21 @@ export default class Aplayer extends React.Component {
         listFolded:true,
         autoplay:true
     };
-    return (
-        <div>
-            <ReactAplayer
-                {...props}
-                onInit={this.onInit}
-                onPlay={this.onPlay}
-                onPause={this.onPause}
-            />
-        </div>   
-    );
+    if (props.audio.length !== 0) {
+        return (
+            <div>
+                <ReactAplayer
+                    {...props}
+                    onInit={this.onInit}
+                    onPlay={this.onPlay}
+                    onPause={this.onPause}
+                />
+            </div>   
+        );
+    } else {
+        return (<></>)
+
+    }
+    
   }
 }

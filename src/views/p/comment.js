@@ -33,7 +33,6 @@ const ExampleFatherComments = (item) => {
 // 嵌套评论
 const ExampleSonComments = (item) => {
     return item.children.map((i,k) => {
-        console.log(i)
         return <Comment
                     key={k}
                     actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,i)}>回复</span>]}

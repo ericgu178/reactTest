@@ -19,7 +19,6 @@ class index extends React.Component {
     }
     async getContent(id,title) {
         let result = await searchLabelList({label_id:id,label_name:title});
-        console.log(result)
         this.setState({
             loading:false,
             data:result.data.search_list,
