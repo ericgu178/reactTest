@@ -1,7 +1,7 @@
 import React from "react";
 import './main.css';
 import { Layout } from "antd";
-import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined } from '@ant-design/icons';
+import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined,FileImageOutlined } from '@ant-design/icons';
 import Menus from "./common/menu";
 import Router from "../router/index";
 import Search from "./common/search";
@@ -31,6 +31,10 @@ const menus = [{
     path: '/cangku',
     title: '仓库',
     icon: <ApartmentOutlined />,
+}, {
+    path: '/img',
+    title: '照片墙',
+    icon: <FileImageOutlined />,
 }]
 const { Header, Content, Footer } = Layout;
 
