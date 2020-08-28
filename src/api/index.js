@@ -45,3 +45,8 @@ export const searchLabelList = params => {
     return getRequest('/index/index/searchLabelList',params); 
 }
 
+// 照片墙
+export const getPicture = params => {
+    return getRequest('/index/picture/index',params);
+}
+

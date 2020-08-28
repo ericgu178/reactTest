@@ -1,7 +1,7 @@
 import React from "react";
 import './main.css';
 import { Layout } from "antd";
-import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined,FileImageOutlined } from '@ant-design/icons';
+import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined,CameraOutlined } from '@ant-design/icons';
 import Menus from "./common/menu";
 import Router from "../router/index";
 import Search from "./common/search";
@@ -34,7 +34,7 @@ const menus = [{
 }, {
     path: '/img',
     title: '照片墙',
-    icon: <FileImageOutlined />,
+    icon: <CameraOutlined />,
 }]
 const { Header, Content, Footer } = Layout;
 
