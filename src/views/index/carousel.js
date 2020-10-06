@@ -7,12 +7,18 @@ const { Title } = Typography;
 
 class carouselDom extends React.Component {
     state = {
-        data: []
+        data: [],
+        url: null
     }
     async getContent() {
         let result = await getBanner();
         this.setState({
             data: result.data
+        })
+    }
+    componentDidMount() {
+        this.setState({
+            url: window._.baseUrl
         })
     }
     componentWillMount() {
@@ -26,7 +32,7 @@ class carouselDom extends React.Component {
         const carousels = list.map(item => {
             return (
                 <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }} key={item}>
-                    <img onClick={this.onClick.bind(this, item)} style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} src={window._.baseUrl + item.material_id.filepath} alt={item} />
+                    <img onClick={this.onClick.bind(this, item)} style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} src={this.state.url + item.material_id.filepath} alt={item} />
                     <div style={style.div}>
                         <Title level={2} style={{ color: '#fff', height: '100%', display: 'flex', alignItems: 'center' }}>
                             {item.banner_title.substr(0, 10)}

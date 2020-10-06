@@ -10,12 +10,16 @@ class list extends React.Component {
         loading: true,
         contentLoading: true,
         pageSize: 10,
-        pageTotal: 0
+        pageTotal: 0,
+        url:null
     }
 
     componentDidMount() {
         this.getContent()
-        this.setState({ contentLoading: false })
+        this.setState({ 
+            contentLoading: false,
+            url: window._.baseUrl
+        })
     }
 
     async getContent(search = {}) {
@@ -33,7 +37,7 @@ class list extends React.Component {
                 description: item.blog_describe.length > 120 ? item.blog_describe : item.blog_content.substr(0, 200),
                 create_time: item.create_time,
                 reads: item.reads,
-                img: `${window._.baseUrl}/${item.material_id.filepath}`,
+                img: `${this.state.url}/${item.material_id.filepath}`,
                 tags: tags.join(',')
             })
         })

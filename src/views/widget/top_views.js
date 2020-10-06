@@ -8,11 +8,13 @@ class TopViews extends React.Component {
     state = {
         title: '点击排行',
         loading: true,
-        data: []
+        data: [],
+        url:null
     }
 
     // dom加载完毕钓鱼
     componentDidMount() {
+        this.setState({url:window._.baseUrl})
         this.getContent();
     }
 
@@ -46,7 +48,7 @@ class TopViews extends React.Component {
                                     <List.Item.Meta
                                         style={{ cursor: 'pointer' }}
                                         onClick={this.onClick.bind(this, item.id)}
-                                        avatar={<img style={{ width: '10vh', height: '100%', objectFit: 'cover' }} alt="logo" src={window._.baseUrl + item.material_id.filepath} />}
+                                        avatar={<img style={{ width: '10vh', height: '100%', objectFit: 'cover' }} alt="logo" src={this.state.url + item.material_id.filepath} />}
                                         title={item.blog_title.length > 40 ? item.blog_title.substr(0, 40) + '...' : item.blog_title}
                                     />
                                 </List.Item>

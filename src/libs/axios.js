@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let base = window._.baseUrl; // 基础url
+let base = 'https://api.ericgu178.com'; // 基础url
 
 axios.defaults.timeout = 15000;
 

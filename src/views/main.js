@@ -5,7 +5,7 @@ import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutli
 import Menus from "./common/menu";
 import Router from "../router/index";
 import Search from "./common/search";
-import Aplayer from "./widget/aplayer"
+// import Aplayer from "./widget/aplayer"
 const menus = [{
     path: '/index',
     title: '首页',
@@ -60,7 +60,7 @@ class Main extends React.Component {
                     <div className="main_center" style={{ padding: 10, minHeight: 600, backgroundColor: 'rgba(0,0,0,0)' }}>
                         <Router />
                     </div>
-                    <Aplayer></Aplayer>
+                    {/* <Aplayer></Aplayer> */}
                 </Content>
                 <Footer style={{ textAlign: 'center',fontSize:'18px','color':'#fff', backgroundColor: 'rgba(0,0,0,0.8)' }}>
                     © 2019 - 2020 Copyright
