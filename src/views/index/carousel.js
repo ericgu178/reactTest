@@ -20,9 +20,10 @@ class carouselDom extends React.Component {
         this.setState({
             url: window._.baseUrl
         })
+        this.getContent()
     }
     componentWillMount() {
-        this.getContent()
+        
     }
     onClick(item) {
         return this.props.history.push(`/p/${item.article_id}`)

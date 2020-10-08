@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactAplayer from 'react-aplayer';
 import axios from 'axios'
 export default class Aplayer extends React.Component {
   // event binding example
   state = {
-      audio:[]
+      audio:[],
+      ReactAplayer:null
   }
   onPlay = () => {
   };
@@ -16,7 +16,10 @@ export default class Aplayer extends React.Component {
   onInit = ap => {
     this.ap = ap;
   };
-  componentWillMount() {
+  componentDidMount() {
+    import('react-aplayer').then(res=>{
+        this.setState({ReactAplayer:res.default})
+    })
     axios({
         method: 'get',
         url: 'https://bird.ioliu.cn/v1/?url=https://music.163.com/api/playlist/detail?id=866762201',
@@ -37,6 +40,7 @@ export default class Aplayer extends React.Component {
 
   render() {
     const audio = [...this.state.audio];
+    const ReactAplayer = this.state.ReactAplayer
     const props = {
         theme: '#F57F17',
         lrcType: 3,

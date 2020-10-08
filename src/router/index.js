@@ -12,9 +12,10 @@ import tagArticle from '../views/search/tagArticle';
 import picture from '../views/picture';
 
 class index extends React.Component {
-    setTitle = title => () => document.title = title;
+    // setTitle = title => () => document.title = title;
 
     render() {
+        console.log(this.props)
         return (
             // 我们将这个key绑定在 路由顶层元素上就能精确定位路由了 解决的是路由变了 但是页面没有刷新
             <div key={this.props.location.key}>

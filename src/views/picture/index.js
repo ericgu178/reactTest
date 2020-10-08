@@ -1,14 +1,20 @@
 import React from 'react';
-import Zmage from 'react-zmage';
 import { Card,Alert,Spin  } from 'antd';
 import { getPicture } from "../../api/index"
+
 class index extends React.Component {
     state = {
         data:[],
-        loading:true
+        loading:true,
+        Zmage:null
     }
     componentWillMount() {
         this.getContent()
+    }
+    componentDidMount() {
+        import('react-zmage').then(res=>{
+            this.setState({Zmage:res.default})
+        })
     }
     async getContent() {
         let result = await getPicture();
@@ -16,7 +22,7 @@ class index extends React.Component {
     }
     render() {
         const { Meta } = Card;
-        const { data,loading } = this.state;
+        const { data,loading,Zmage } = this.state;
         const html = data.map((item)=>{
             const set = item.link_image.map((s) => {
                 return {
@@ -25,7 +31,6 @@ class index extends React.Component {
                 }
             })
             return (
-                
                 <Card
                     key={item.id}
                     hoverable

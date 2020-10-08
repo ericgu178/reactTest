@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux';
-import store from './store/index'
 import React from "react";
 import { StaticRouter , Switch, Route } from 'react-router-dom'
 import index from "./views/main"
@@ -8,6 +7,7 @@ import { ConfigProvider } from 'antd';
 // 服务器serverapp
 class App extends React.Component {
     render() {
+        const { store } = this.props
         return (
             <StaticRouter>
                 <Provider store={store}>
