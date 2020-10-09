@@ -11,8 +11,9 @@ import thunk from 'redux-thunk'
 import reducers from './reducers'
 
 // 创建store实例
-let store = createStore(
+const store = initState => createStore(
     reducers,
+    initState,
     applyMiddleware(thunk)
 )
 export default store

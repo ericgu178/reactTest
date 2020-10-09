@@ -7,11 +7,11 @@ import { ConfigProvider } from 'antd';
 // 服务器serverapp
 class App extends React.Component {
     render() {
-        const { store } = this.props
+        const { store,local } = this.props
         return (
             <StaticRouter>
                 <Provider store={store}>
-                    <ConfigProvider locale={this.props.local}>
+                    <ConfigProvider locale={local}>
                         <Switch>
                             <Route path="/" component={index} />
                         </Switch>

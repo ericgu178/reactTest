@@ -1,58 +1,31 @@
 import React from 'react'
 import { List, Space, Skeleton } from 'antd';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-
 import { ClockCircleOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
-import { getContent } from "../../api/index";
+import { fetchArtList } from "../../store/actions/index"
+import { connect } from 'react-redux';
+
 class list extends React.Component {
-    state = {
-        listData: [],
-        loading: true,
-        contentLoading: true,
-        pageSize: 10,
-        pageTotal: 0,
-        url:null
-    }
-
-    componentDidMount() {
-        this.getContent()
-        this.setState({ 
-            contentLoading: false,
-            url: window._.baseUrl
-        })
-    }
-
-    async getContent(search = {}) {
-        let data = await getContent(search)
-        this.setState({ loading: false, contentLoading: false })
-        const result = [];
-        data.data.filter(item => {
-            const tags = [];
-            item.label_pk_ids.filter(tag => {
-                tags.push(tag.label_name)
-            })
-            result.push({
-                href: `/p/${item.id}`,
-                title: item.blog_title,
-                description: item.blog_describe.length > 120 ? item.blog_describe : item.blog_content.substr(0, 200),
-                create_time: item.create_time,
-                reads: item.reads,
-                img: `${this.state.url}/${item.material_id.filepath}`,
-                tags: tags.join(',')
-            })
-        })
-
-        this.setState({ listData: result, pageTotal: data.total })
+    constructor(props){
+        super(props)
+        this.state = {
+            ...props
+        }
+	}
+    static fetch(store,params){
+        return store.dispatch(fetchArtList(params))
     }
     onClick(item) {
         return this.props.history.push(item.href)
     }
-
-    onChange = (page) => {
+    onChange = async (page) => {
         this.setState({ loading: true, contentLoading: true })
-        this.getContent({ page: page })
+        this.props.history.push(`/index?page=${page}`)
+        await this.props.fetchArtList({page:page});
+        this.setState({...this.props})
+        this.setState({ loading: false, contentLoading: false })
     }
-
     render() {
         const listData = this.state.listData;
         const IconText = ({ icon, text }) => (
@@ -102,4 +75,24 @@ class list extends React.Component {
         )
     }
 }
-export default withRouter(list);
+const mapStateToProps = (state) => ({
+    listData:state.ArtList.listData,
+    pageSize:state.ArtList.pageSize,
+    loading:state.ArtList.loading,
+    contentLoading:state.ArtList.contentLoading,
+    url:state.ArtList.url,
+    pageTotal: state.ArtList.pageTotal,
+});
+const mapDispatchToProps = {
+    fetchArtList:fetchArtList
+}
+  
+list.propTypes = {
+    listData:PropTypes.array.isRequired,
+    pageSize:PropTypes.number.isRequired,
+    loading:PropTypes.bool.isRequired,
+    contentLoading:PropTypes.bool.isRequired,
+    url:PropTypes.string.isRequired,
+    pageTotal: PropTypes.number.isRequired,
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(list));

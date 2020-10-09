@@ -2,6 +2,8 @@ import App from '../src/serverapp';
 import Koa from 'koa';
 import React from 'react';
 import Router from 'koa-router';
+import bodyParser from 'koa-bodyparser';
+import cors from 'koa2-cors';
 import fs from 'fs';
 import koaStatic from 'koa-static';
 import path from 'path';
@@ -9,15 +11,14 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server';
 import RouterConfig from "../src/router/index"
-import { getContent } from "../src/api/index";
-
+import Ls from "../src/views/index/list"
+import getCreateStore from './store';
 // 配置文件
 const config = {
     port: 3030
 };
 // 实例化 koa
 const app = new Koa();
-
 // 静态资源
 app.use(
     koaStatic(path.join(__dirname, '../build'), {
@@ -26,36 +27,20 @@ app.use(
         // 这里配置不要写成'index'就可以了，因为在访问localhost:3030时，不能让服务默认去加载index.html文件，这里很容易掉进坑。
     })
 );
-
+app.use(bodyParser());
+app.use(cors());
 // 设置路由
 app.use(
     new Router()
         .get('*', async (ctx, next) => {
-                let data = await getContent()
-                const result = [];
-                data.data.filter(item => {
-                    const tags = [];
-                    item.label_pk_ids.filter(tag => {
-                        tags.push(tag.label_name)
-                    })
-                    result.push({
-                        href: `/p/${item.id}`,
-                        title: item.blog_title,
-                        description: item.blog_describe.length > 120 ? item.blog_describe : item.blog_content.substr(0, 200),
-                        create_time: item.create_time,
-                        reads: item.reads,
-                        img: `https://ericgu178.com/${item.material_id.filepath}`,
-                        tags: tags.join(',')
-                    })
-                })
-        
-            const context = { listData: result, pageTotal: data.total,pageSize: 10,loading: false,
-                    contentLoading: false,url:'https://ericgu178.com/'};
+            let query = ctx.request.query
+            console.log(ctx.req.url,ctx.request.query)
+            const { store ,history} = getCreateStore(ctx)
+            await Ls.fetch(store,{page:query.page})
 
-            
             const html = renderToString(
-                <Provider>
-                    <StaticRouter location={ctx.url} context={context}>
+                <Provider store={store}>
+                    <StaticRouter location={ctx.url} context={{}}>
                         <RouterConfig/>
                     </StaticRouter> 
                 </Provider>
@@ -68,13 +53,13 @@ app.use(
                         reject();
                         return console.log(err);
                     }
-                    // console.log(data)
                     shtml = data;
                     resolve();
                 });
             });
+            let initState = store.getState();
             ctx.response.body = shtml.replace('{{title}}', 'EricGU178 个人博客');
-            ctx.response.body = ctx.response.body.replace('{{script}}', `<script>window.__INITIAL_STATE__ = ${JSON.stringify(context)}</script>`);
+            ctx.response.body = ctx.response.body.replace('{{script}}', `<script>window.__INITIAL_STATE__ = ${JSON.stringify(initState)}</script>`);
             ctx.response.body = ctx.response.body.replace('{{root}}', html);
             await next();
     })
