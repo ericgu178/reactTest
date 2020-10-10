@@ -7,13 +7,12 @@ import Subscribe from '../widget/subscribe';
 
 import './index.css';
 class index extends React.Component {
-    state = {}
-
+    
     static async fetch(store,params) {
         await List.fetch(store,params)
-        // TopViews.fetch(store)
+        await TopViews.fetch(store)
         await CarouselDom.fetch(store)
-        // TagCloud.fetch(store)
+        await TagCloud.fetch(store)
     }
 
     render() {
@@ -36,7 +35,5 @@ class index extends React.Component {
         )
     }
 }
-
-
 
 export default index;

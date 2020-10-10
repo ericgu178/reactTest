@@ -17,15 +17,10 @@ class list extends React.Component {
         return store.dispatch(fetchArtList(params))
     }
     onClick(item) {
-        return this.props.history.push(item.href)
+        window.location.href = item.href
     }
     onChange = async (page) => {
-        // this.setState({ loading: true, contentLoading: true })
-        this.props.history.push(`/index?page=${page}`)
-        // window.location.reload();
-        // await this.props.fetchArtList({page:page});
-        // this.setState({...this.props})
-        // this.setState({ loading: false, contentLoading: false })
+        window.location.href = `/index?page=${page}`
     }
     render() {
         const listData = this.state.listData;

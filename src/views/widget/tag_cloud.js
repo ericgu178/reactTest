@@ -1,27 +1,20 @@
 // 标签云
 import React from "react";
 import { Tag, Card,Tooltip } from "antd";
-import { getTag } from "../../api/index";
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { fetchTags } from "../../store/actions/index"
+import { connect } from 'react-redux';
 class TagCloud extends React.Component {
-    state = {
-        title: '标签云',
-        data: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: '标签云',
+            ...props
+        }
     }
-    componentDidMount() {
-        this.getContent();
-    }
-    async getContent() {
-        let result = await getTag();
-        const data = [];
-        result.data.filter(item => {
-            data.push({
-                id: item.id,
-                color: item.color,
-                title: item.label_name
-            })
-        })
-        this.setState({ data: data })
+    static fetch(store) {
+        return store.dispatch(fetchTags())
     }
     // 跳转 tag 页
     onChangeTag(item) {
@@ -44,5 +37,14 @@ class TagCloud extends React.Component {
         )
     }
 }
-
-export default withRouter(TagCloud);
+const mapStateToProps = (state) => ({
+    data:state.TagCloud.data,
+});
+const mapDispatchToProps = {
+    fetchTags:fetchTags
+}
+// 校验数据
+TagCloud.propTypes = {
+    data:PropTypes.array.isRequired,
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TagCloud));

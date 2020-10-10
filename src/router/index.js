@@ -35,3 +35,12 @@ class index extends React.Component {
 }
 
 export default withRouter(index)
+
+export const routes = [
+    { path:'/', component:indexs,exact:true},
+    { path:'/index', component:indexs },
+    { path:'/about', component:about },
+    { path:'/p', component:p ,exact:true},
+    { path:'/archive', component:archive },
+    { path:'/img', component:picture }
+]

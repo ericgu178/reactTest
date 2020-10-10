@@ -1,4 +1,4 @@
-import { getContent,getBanner,getTopViews } from "../../api/index"
+import { getContent,getBanner,getTopViews,getTag } from "../../api/index"
 
 // 文章列表请求
 export const fetchArtList = params => {
@@ -45,6 +45,42 @@ export const fetchBanner = () => {
             data: { 
                 data: data.data, 
                 url:'https://api.ericgu178.com/'
+            }
+        });
+    }
+}
+
+// 排行数据请求
+export const fetchTopViews = () => {
+    return async (dispatch, getState) => {
+        let data = await getTopViews()
+        dispatch({
+            type: 'TOPVIEWS',
+            data: { 
+                data: data.data, 
+                url:'https://api.ericgu178.com/',
+                loading:false
+            }
+        });
+    }
+}
+
+// 标签云请求
+export const fetchTags = () => {
+    return async (dispatch, getState) => {
+        let result = await getTag();
+        const data = [];
+        result.data.filter(item => {
+            data.push({
+                id: item.id,
+                color: item.color,
+                title: item.label_name
+            })
+        })
+        dispatch({
+            type: 'TAGCLOUNDS',
+            data: { 
+                data: data, 
             }
         });
     }

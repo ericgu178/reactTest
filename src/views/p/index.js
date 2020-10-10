@@ -8,32 +8,24 @@ import Subscribe from '../widget/subscribe';
 import './p.css';
 import Comment from "./comment";
 import RArticles from "./related_articles";
-import { getP } from "../../api/index";
 import { withRouter } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
+import { fetchP } from "../../store/actions/p"
+import { connect } from 'react-redux';
 const { Title, Paragraph } = Typography
 class P extends React.Component {
-    state = {
-        data: {},
-        html: '',
-        loading: true
+    constructor(props) {
+        super(props)
+        this.state = {
+            ...props
+        }
     }
+
+    static fetch(store,query) {
+        return store.dispatch(fetchP(query))
+    }
+
     componentDidMount() {
-        this.getContent({ id: this.props.match.params.id });
-    }
-    htmlDecode(str) {
-         /*4.用正则表达式实现html解码*/
-        var s = "";
-        if(str.length === 0) return "";
-        s = str.replace(/&amp;/g,"&");
-        s = s.replace(/&lt;/g,"<");
-        s = s.replace(/&gt;/g,">");
-        s = s.replace(/&nbsp;/g," ");
-        s = s.replace(/&quot;/g,"\"");
-        return s; 
-    }
-    async getContent(params = {}) {
-        let result = await getP(params);
         const renderer = {
             html:html => {
                 return this.htmlDecode(html)
@@ -53,13 +45,23 @@ class P extends React.Component {
                 return hljs.highlightAuto(code).value;
             }
         });
-        let html = marked(result.data.blog_content);
-        document.title = result.data.blog_title
+        let html = marked(this.state.data.blog_content);
+        document.title = this.state.data.blog_title
         this.setState({
-            data: result.data,
             html: html,
             loading: false
         });
+    }
+    htmlDecode(str) {
+         /*4.用正则表达式实现html解码*/
+        var s = "";
+        if(str.length === 0) return "";
+        s = str.replace(/&amp;/g,"&");
+        s = s.replace(/&lt;/g,"<");
+        s = s.replace(/&gt;/g,">");
+        s = s.replace(/&nbsp;/g," ");
+        s = s.replace(/&quot;/g,"\"");
+        return s; 
     }
 
     render() {
@@ -117,4 +119,18 @@ const styles = {
         padding: '2vh',
     }
 }
-export default withRouter(P);
+const mapStateToProps = (state) => ({
+    data:state.P.data,
+    html:state.P.html,
+    loading:state.P.loading,
+});
+const mapDispatchToProps = {
+    fetchP:fetchP
+}
+// 校验数据
+P.propTypes = {
+    data:PropTypes.object.isRequired,
+    html:PropTypes.string.isRequired,
+    loading:PropTypes.bool.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(P));

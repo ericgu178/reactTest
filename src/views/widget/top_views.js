@@ -3,30 +3,26 @@ import React from "react"
 import { List, Card, Skeleton, Space } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
-import { getTopViews } from "../../api/index"
+import PropTypes from 'prop-types';
+import { fetchTopViews } from "../../store/actions/index"
+import { connect } from 'react-redux';
 class TopViews extends React.Component {
-    state = {
-        title: '点击排行',
-        loading: true,
-        data: [],
-        url:null
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: '点击排行',
+            ...props
+        }
     }
 
-    // dom加载完毕钓鱼
-    componentDidMount() {
-        this.setState({url:window._.baseUrl})
-        this.getContent();
+    static fetch(store) {
+        return store.dispatch(fetchTopViews())
     }
 
     onClick(id) {
         return this.props.history.push(`/p/${id}`)
     }
 
-    // 获取数据
-    async getContent() {
-        let result = await getTopViews();
-        this.setState({ data: result.data, loading: false })
-    }
     render() {
         return (
             <div className="widget" style={styles.topviews}>
@@ -66,5 +62,16 @@ const styles = {
         background: '#fff'
     }
 }
-
-export default withRouter(TopViews)
+const mapStateToProps = (state) => ({
+    data:state.TopViews.topViewsData,
+    url:state.TopViews.url
+});
+const mapDispatchToProps = {
+    fetchTopViews:fetchTopViews
+}
+// 校验数据
+TopViews.propTypes = {
+    data:PropTypes.array.isRequired,
+    url:PropTypes.string.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TopViews));
