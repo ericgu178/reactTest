@@ -1,30 +1,24 @@
 import React from 'react';
 import { Carousel, Typography } from 'antd';
-import { getBanner } from "../../api/index";
+import { fetchBanner } from "../../store/actions/index"
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux"
+import PropTypes from 'prop-types';
 
 const { Title } = Typography;
-
+// 轮播图
 class carouselDom extends React.Component {
-    state = {
-        data: [],
-        url: null
+    constructor(props) {
+        super(props)
+        this.state = {
+            ...props
+        }
     }
-    async getContent() {
-        let result = await getBanner();
-        this.setState({
-            data: result.data
-        })
+
+    static fetch(store) {
+        return store.dispatch(fetchBanner())
     }
-    componentDidMount() {
-        this.setState({
-            url: window._.baseUrl
-        })
-        this.getContent()
-    }
-    componentWillMount() {
-        
-    }
+
     onClick(item) {
         return this.props.history.push(`/p/${item.article_id}`)
     }
@@ -71,8 +65,18 @@ const style = {
         marginLeft: '.5vh',
         paddingLeft: '1vh',
         color: '#000'
-        // padding: '1vh'
     }
 }
-
-export default withRouter(carouselDom);
+const mapStateToProps = (state) => ({
+    data:state.Banner.bannerData,
+    url:state.Banner.url
+});
+const mapDispatchToProps = {
+    fetchBanner:fetchBanner
+}
+// 校验数据
+carouselDom.propTypes = {
+    data:PropTypes.array.isRequired,
+    url:PropTypes.string.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(carouselDom));

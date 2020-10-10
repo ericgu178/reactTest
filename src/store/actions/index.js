@@ -1,4 +1,4 @@
-import { getContent } from "../../api/index"
+import { getContent,getBanner,getTopViews } from "../../api/index"
 
 // 文章列表请求
 export const fetchArtList = params => {
@@ -29,11 +29,23 @@ export const fetchArtList = params => {
                 pageSize: 10,
                 loading: false,
                 contentLoading: false,
+                url:'https://api.ericgu178.com/',
+                current:parseInt(params.page) || 1
+            }
+        });
+    }
+}
+
+// banner请求
+export const fetchBanner = () => {
+    return async (dispatch, getState) => {
+        let data = await getBanner()
+        dispatch({
+            type: 'BANNER',
+            data: { 
+                data: data.data, 
                 url:'https://api.ericgu178.com/'
             }
         });
-
     }
-
-
 }

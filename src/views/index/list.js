@@ -20,11 +20,12 @@ class list extends React.Component {
         return this.props.history.push(item.href)
     }
     onChange = async (page) => {
-        this.setState({ loading: true, contentLoading: true })
+        // this.setState({ loading: true, contentLoading: true })
         this.props.history.push(`/index?page=${page}`)
-        await this.props.fetchArtList({page:page});
-        this.setState({...this.props})
-        this.setState({ loading: false, contentLoading: false })
+        // window.location.reload();
+        // await this.props.fetchArtList({page:page});
+        // this.setState({...this.props})
+        // this.setState({ loading: false, contentLoading: false })
     }
     render() {
         const listData = this.state.listData;
@@ -41,6 +42,7 @@ class list extends React.Component {
                     itemLayout="vertical"
                     size="large"
                     pagination={{
+                        current:this.state.current,
                         onChange: this.onChange.bind(this),
                         pageSize: this.state.pageSize,
                         total: this.state.pageTotal
@@ -82,6 +84,7 @@ const mapStateToProps = (state) => ({
     contentLoading:state.ArtList.contentLoading,
     url:state.ArtList.url,
     pageTotal: state.ArtList.pageTotal,
+    current: state.ArtList.current
 });
 const mapDispatchToProps = {
     fetchArtList:fetchArtList
@@ -94,5 +97,6 @@ list.propTypes = {
     contentLoading:PropTypes.bool.isRequired,
     url:PropTypes.string.isRequired,
     pageTotal: PropTypes.number.isRequired,
+    current: PropTypes.number.isRequired
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(list));

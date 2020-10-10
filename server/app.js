@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server';
 import RouterConfig from "../src/router/index"
-import Ls from "../src/views/index/list"
+import Ls from "../src/views/index/index"
 import getCreateStore from './store';
 // 配置文件
 const config = {
