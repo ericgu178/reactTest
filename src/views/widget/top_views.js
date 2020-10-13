@@ -20,7 +20,7 @@ class TopViews extends React.Component {
     }
 
     onClick(id) {
-        return this.props.history.push(`/p/${id}`)
+        window.location.href = `/p/${id}`
     }
 
     render() {

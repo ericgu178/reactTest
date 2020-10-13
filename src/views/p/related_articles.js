@@ -2,27 +2,24 @@ import React from "react";
 import { Card,List } from "antd";
 import {getRelevant} from "../../api/index";
 import { withRouter } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
+import { fetchRelated } from "../../store/actions/p"
+import { connect } from 'react-redux';
 // 相关文章
 class RArticles extends React.Component {
-    state = {
-        title: '相关文章',
-        loading:true,
-        data:[]
+    constructor(props) {
+        super(props)
+        this.state = {
+            ...props,
+            title: '相关文章'
+        }
     }
-    componentDidMount() {
-        const labels = []
-        this.props.labelPkIds.filter(item=>{
-            labels.push(item.id)
-        })
-        this.getContent(labels)
+    static fetch(store,params) {
+        return store.dispatch(fetchRelated(params))
     }
-    async getContent(label_ids) {
-        let result = await getRelevant({label_pk_ids:label_ids})
-        this.setState({loading:false,data:result.data})
-    }
+
     toP(item) {
-        return this.props.history.push(`/p/${item.id}`)
+        window.location.href = `/p/${item.id}`
     }
     render() {
         const listData = this.state.data
@@ -74,4 +71,16 @@ const style = {
         marginTop:'10px'
     }
 }
-export default withRouter(RArticles);
+const mapStateToProps = (state) => ({
+    data:state.Related.data,
+    loading:state.Related.loading,
+});
+const mapDispatchToProps = {
+    fetchRelated:fetchRelated
+}
+// 校验数据
+RArticles.propTypes = {
+    data:PropTypes.array.isRequired,
+    loading:PropTypes.bool.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(RArticles));

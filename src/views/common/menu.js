@@ -72,7 +72,7 @@ class menu extends React.Component {
         return (
             <Menu.Item key={path} onClick={({ key }) => {
                 this.setState({ selectKeys: [key] })
-                this.props.history.push(key)
+                window.location.href = key
             }}>
                 {icon && icon}
                 <span>{title}</span>

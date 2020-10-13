@@ -1,8 +1,6 @@
 import React from 'react';
 import { Space, Typography, Divider, Affix, Skeleton } from 'antd';
 import { ClockCircleOutlined, EyeOutlined } from '@ant-design/icons';
-import marked from 'marked';
-import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
 import Subscribe from '../widget/subscribe';
 import './p.css';
@@ -21,49 +19,16 @@ class P extends React.Component {
         }
     }
 
-    static fetch(store,query) {
-        return store.dispatch(fetchP(query))
+    static async fetch(store,query) {
+        await store.dispatch(fetchP(query))
+        let data = store.getState().P.data;
+        await Comment.fetch(store,{id:data.id})
+        await RArticles.fetch(store,data.label_pk_ids)
     }
 
     componentDidMount() {
-        const renderer = {
-            html:html => {
-                return this.htmlDecode(html)
-            }
-        }
-        marked.use({renderer});
-        marked.setOptions({
-            // renderer: new marked.Renderer(),
-            gfm: true,
-            pedantic: false,
-            sanitize: false,
-            tables: true,
-            breaks: true,
-            smartLists: true,
-            smartypants: true,
-            highlight: function (code) {
-                return hljs.highlightAuto(code).value;
-            }
-        });
-        let html = marked(this.state.data.blog_content);
-        document.title = this.state.data.blog_title
-        this.setState({
-            html: html,
-            loading: false
-        });
+        document.title = this.state.data.blog_title        
     }
-    htmlDecode(str) {
-         /*4.用正则表达式实现html解码*/
-        var s = "";
-        if(str.length === 0) return "";
-        s = str.replace(/&amp;/g,"&");
-        s = s.replace(/&lt;/g,"<");
-        s = s.replace(/&gt;/g,">");
-        s = s.replace(/&nbsp;/g," ");
-        s = s.replace(/&quot;/g,"\"");
-        return s; 
-    }
-
     render() {
         const html = this.state.html
         return (

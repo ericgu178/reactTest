@@ -1,4 +1,3 @@
-import App from '../src/serverapp';
 import Koa from 'koa';
 import React from 'react';
 import Router from 'koa-router';
@@ -47,10 +46,11 @@ app.use(
             await renderFullHtml(ctx,store,`/p/${ctx.params.id}`)
             await next()
         })
-        .get('*', async (ctx, next) => {
+        .get('/index', async (ctx, next) => {
             let url = ctx.req.url.substr(0,ctx.req.url.indexOf('?'))
-            const branch = matchRoutes(routes, '/p');
-            console.log(branch,ctx.req.url,ctx.params.id)
+            url = url.length === 0 ? ctx.req.url : url;
+
+            const branch = matchRoutes(routes, url);
             let query = ctx.request.query
             const { store ,history} = getCreateStore(ctx)
             const promises = branch.map(({route}) => {
@@ -60,7 +60,8 @@ app.use(
             await Promise.all(promises).catch((err)=>{
                 console.log(err);
             });
-            await renderFullHtml(ctx,store,'/p/1')
+
+            await renderFullHtml(ctx,store,url)
             await next();
     })
     .routes()

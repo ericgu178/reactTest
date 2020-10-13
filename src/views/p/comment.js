@@ -3,6 +3,9 @@ import { Comment,message,Tag , Card, Avatar,Tooltip,Form,Input,Button } from 'an
 import { getComments,submitComment} from "../../api/index"
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import PropTypes from 'prop-types';
+import { fetchComments } from "../../store/actions/p"
+import { connect } from 'react-redux';
 moment.locale('zh-cn');
 const {TextArea} = Input;
 // 评论模块
@@ -71,21 +74,22 @@ const Editor = ({ onChange, onSubmit, submitting, value, p }) => (
     </>
   );
 class CommentDom extends React.Component {
-    state = {
-        title: '文章评论',
-        data:[],
-        submitting: false, // 提交中的状态
-        value: '', // 提交的数据内容
-        pid:0,
-        pName:''
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: '文章评论',
+            data:props.data,
+            submitting: false, // 提交中的状态
+            value: '', // 提交的数据内容
+            pid:0,
+            pName:''
+        }
     }
-    componentDidMount() {
-        this.getContent(this.props.id);
+
+    static fetch(store,params) {
+        return store.dispatch(fetchComments(params))
     }
-    async getContent(id) {
-       let result = await getComments({id:id});
-       this.setState({data:result.data});
-    }
+
     // 提交
     handleSubmit = async e => {
         if (!this.state.value) {
@@ -106,7 +110,7 @@ class CommentDom extends React.Component {
             value:'',
             pName:''
         });
-        this.getContent(this.props.id);
+        await this.props.fetchComments({id:this.props.id});
     }
     handleChange = e => {
         this.setState({
@@ -175,4 +179,14 @@ class CommentDom extends React.Component {
         )
     }
 }
-export default CommentDom;
+const mapStateToProps = (state) => ({
+    data:state.Comment.data,
+});
+const mapDispatchToProps = {
+    fetchComments:fetchComments
+}
+// 校验数据
+CommentDom.propTypes = {
+    data:PropTypes.array.isRequired,
+}
+export default connect(mapStateToProps,mapDispatchToProps)(CommentDom);
