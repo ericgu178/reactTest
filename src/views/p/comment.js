@@ -1,6 +1,6 @@
 import React from 'react';
 import { Comment,message,Tag , Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
-import { getComments,submitComment} from "../../api/index"
+import { submitComment} from "../../api/index"
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import PropTypes from 'prop-types';

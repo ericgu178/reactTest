@@ -18,7 +18,7 @@ class TagCloud extends React.Component {
     }
     // 跳转 tag 页
     onChangeTag(item) {
-        this.props.history.push('/t/' + item.id + '/' + item.title)
+        window.location.href = '/t/' + item.id + '/' + item.title
     }
     render() {
         const tags = this.state.data.map(item => {

@@ -1,34 +1,31 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import { List,Skeleton,Alert  } from "antd";
-import { searchLabelList } from "../../api/index";
 import TagCloud from '../widget/tag_cloud';
 import Subscribe from '../widget/subscribe';
-
+import { fetchTagArticle } from "../../store/actions/search";
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 class index extends React.Component {
-    state = {
-        title: '相关文章',
-        loading:true,
-        data:[],
-        count:0,
-        keyboard:''
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...props
+        }
     }
-    componentDidMount() {
-        this.getContent(this.props.match.params.id,this.props.match.params.title)
+
+    static async fetch(store,query) {
+        await store.dispatch(fetchTagArticle(query))
+        console.log(this.state)
+        await TagCloud.fetch(store)
     }
-    async getContent(id,title) {
-        let result = await searchLabelList({label_id:id,label_name:title});
-        this.setState({
-            loading:false,
-            data:result.data.search_list,
-            count:result.data.count,
-            keyboard:result.data.keyboard
-        })
-    }
+
     toP(item) {
-        return this.props.history.push(`/p/${item.id}`)
+        window.location.href = `/p/${item.id}`;
     }
+
     render() {
         const listData = this.state.data;
         return (
@@ -95,4 +92,21 @@ const style = {
         fontSize:'16px'
     }
 }
-export default withRouter(index);
+
+const mapStateToProps = (state) => ({
+    count:state.TagArticle.count,
+    data:state.TagArticle.data,
+    keyboard:state.TagArticle.keyboard,
+    loading:state.TagArticle.loading,
+});
+const mapDispatchToProps = {
+    fetchTagArticle:fetchTagArticle
+}
+// 校验数据
+index.propTypes = {
+    count:PropTypes.number.isRequired,
+    data:PropTypes.array.isRequired,
+    keyboard:PropTypes.string.isRequired,
+    loading:PropTypes.bool.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(index));

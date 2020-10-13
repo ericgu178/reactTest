@@ -1,6 +1,5 @@
 import React from "react";
 import { Card,List } from "antd";
-import {getRelevant} from "../../api/index";
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchRelated } from "../../store/actions/p"

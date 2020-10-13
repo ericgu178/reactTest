@@ -1,12 +1,15 @@
 import { createStore,applyMiddleware,compose} from 'redux';
-import reducer from '../src/store/reducers';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
-
 import createMemoryHistory from 'history/createMemoryHistory';
 
-const getCreateStore = (ctx) =>{
+/**
+ * 
+ * @param {*} ctx 上下文
+ * @param {*} reducer redux 数据源
+ */
+const getCreateStore = (ctx,reducer) =>{
     const initialState = {};
     const path = ctx.req.url;
     const history = createMemoryHistory({ initialEntries: [path] });

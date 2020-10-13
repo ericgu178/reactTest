@@ -3,11 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { List,Skeleton,Alert  } from "antd";
 import { search } from "../../api/index";
 
-
-
 class index extends React.Component {
     state = {
-        title: '相关文章',
         loading:true,
         data:[]
     }

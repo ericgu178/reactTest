@@ -12,6 +12,7 @@ import { matchRoutes } from 'react-router-config';
 import { renderToString } from 'react-dom/server';
 import RouterConfig,{ routes } from "../src/router/index"
 import getCreateStore from './store';
+import {TReducer,PReducer,IndexReducer}  from '../src/store/reducers';
 // 配置文件
 const config = {
     port: 3030
@@ -28,14 +29,13 @@ app.use(
 );
 app.use(bodyParser());
 app.use(cors());
+
 // 设置路由
 app.use(
     new Router()
         .get('/p/:id' , async (ctx, next) => {
-            console.log(ctx.params)
             const branch = matchRoutes(routes, '/p');
-            // console.log(branch)
-            const { store ,history} = getCreateStore(ctx)
+            const { store } = getCreateStore(ctx,PReducer)
             const promises = branch.map(({route}) => {
                 const fetch = route.component.fetch;
                 return fetch instanceof Function ? fetch(store,ctx.params) : Promise.resolve(null)
@@ -46,13 +46,26 @@ app.use(
             await renderFullHtml(ctx,store,`/p/${ctx.params.id}`)
             await next()
         })
+        .get('/t/:id/:title' , async (ctx, next) => {
+            const branch = matchRoutes(routes, '/t');
+            const { store } = getCreateStore(ctx,TReducer)
+            const promises = branch.map(({route}) => {
+                const fetch = route.component.fetch;
+                return fetch instanceof Function ? fetch(store,ctx.params) : Promise.resolve(null)
+            });
+            await Promise.all(promises).catch((err)=>{
+                console.log(err);
+            });
+            await renderFullHtml(ctx,store,`/t/${ctx.params.id}/${ctx.params.title}`)
+            await next()
+        })
         .get('/index', async (ctx, next) => {
             let url = ctx.req.url.substr(0,ctx.req.url.indexOf('?'))
             url = url.length === 0 ? ctx.req.url : url;
 
             const branch = matchRoutes(routes, url);
             let query = ctx.request.query
-            const { store ,history} = getCreateStore(ctx)
+            const { store } = getCreateStore(ctx,IndexReducer)
             const promises = branch.map(({route}) => {
                 const fetch = route.component.fetch;
                 return fetch instanceof Function ? fetch(store,query) : Promise.resolve(null)

@@ -41,6 +41,7 @@ export const routes = [
     { path:'/index', component:indexs },
     { path:'/about', component:about },
     { path:'/p', component:p ,exact:true},
+    { path:'/t', component:tagArticle,exact:true},
     { path:'/archive', component:archive },
     { path:'/img', component:picture }
 ]
