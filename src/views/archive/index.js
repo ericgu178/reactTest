@@ -2,34 +2,32 @@ import React from "react";
 import { Timeline } from "antd";
 import { withRouter } from "react-router-dom";
 import './archive.css';
-import { getArchive } from "../../api/index";
-
+import { fetchArchive } from "../../store/actions/archive";
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 /**
  * 归档
  */
 class Archive extends React.Component {
-    state = {
-        level: 2,
-        data: [],
-        curr: `${new Date().getFullYear()}`,
-        datelist: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            ...props
+        }
     }
-    componentDidMount() {
-        this.getContent();
+
+    static async fetch(store,query) {
+        return await store.dispatch(fetchArchive(query));
     }
-    async getContent(params = {}) {
-        let result = await getArchive(params);
-        this.setState({ datelist: result.data, data: result.toyear })
+
+    async onClick(date) {
+        window.location.href = `/archive?date=${date}`
     }
-    onClick(item) {
-        this.getContent({ date: item })
-        this.setState({
-            curr: item
-        })
-    }
+
     links(row) {
-        return this.props.history.push(`/p/${row.id}`)
+        window.location.href = `/p/${row.id}`
     }
+
     render() {
         const date = this.state.datelist;
         const data = this.state.data;
@@ -97,4 +95,20 @@ const style = {
         borderRadius: '5px'
     }
 }
-export default withRouter(Archive);  
+const mapStateToProps = (state) => {
+    return {
+        data:state.AIndex.data,
+        curr:state.AIndex.curr,
+        datelist:state.AIndex.datelist,
+    }
+};
+const mapDispatchToProps = {
+    fetchArchive:fetchArchive
+}
+// 校验数据
+Archive.propTypes = {
+    data:PropTypes.array.isRequired,
+    curr:PropTypes.string.isRequired,
+    datelist:PropTypes.array.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Archive));

@@ -1,22 +1,24 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import { List,Skeleton,Alert  } from "antd";
-import { search } from "../../api/index";
-
+import { fetchSearch } from "../../store/actions/search";
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 class index extends React.Component {
-    state = {
-        loading:true,
-        data:[]
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...props
+        }
     }
-    componentDidMount() {
-        this.getContent(this.props.match.params.q)
+
+    static async fetch(store,query) {
+        await store.dispatch(fetchSearch(query))
     }
-    async getContent(q) {
-        let result = await search({q:q})
-        this.setState({loading:false,data:result.data})
-    }
+
     toP(item) {
-        return this.props.history.push(`/p/${item.id}`)
+        window.location.href = `/p/${item.id}`
     }
     render() {
         const listData = this.state.data;
@@ -79,4 +81,17 @@ const style = {
         fontSize:'16px'
     }
 }
-export default withRouter(index);
+
+const mapStateToProps = (state) => ({
+    data:state.Search.data,
+    loading:state.Search.loading,
+});
+const mapDispatchToProps = {
+    fetchSearch:fetchSearch
+}
+// 校验数据
+index.propTypes = {
+    data:PropTypes.array.isRequired,
+    loading:PropTypes.bool.isRequired
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(index));

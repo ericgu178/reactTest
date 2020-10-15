@@ -7,17 +7,18 @@ const {Search} = Input;
 class SearchDom extends React.Component {
     // 搜索事件
     onSearch (value) {
-        this.props.history.push('/search/' + value)
+        window.location.href = '/search/' + value
     }
+
     render () {
         return (
             <>
-            <Search
-                placeholder="输入关键字搜索"
-                enterButton="搜索"
-                size="middle"
-                onSearch={this.onSearch.bind(this)}
-            />
+                <Search
+                    placeholder="输入关键字搜索"
+                    enterButton="搜索"
+                    size="middle"
+                    onSearch={this.onSearch.bind(this)}
+                />
             </>
         )
     }

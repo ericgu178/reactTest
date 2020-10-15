@@ -12,10 +12,10 @@ import { matchRoutes } from 'react-router-config';
 import { renderToString } from 'react-dom/server';
 import RouterConfig,{ routes } from "../src/router/index"
 import getCreateStore from './store';
-import {TReducer,PReducer,IndexReducer}  from '../src/store/reducers';
+import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer}  from '../src/store/reducers';
 // 配置文件
 const config = {
-    port: 3030
+    port: 3040
 };
 // 实例化 koa
 const app = new Koa();
@@ -33,46 +33,51 @@ app.use(cors());
 // 设置路由
 app.use(
     new Router()
+        .get('/about' , async (ctx, next) => {
+            const { store } = getCreateStore(ctx,AReducer)
+            await renderFullHtml(ctx,store,ctx.req.url)
+            await next()
+        })
+        .get('/img' , async (ctx, next) => {
+            const {store} = await searchTemplate(ctx,ImgReducer,ctx.req.url,ctx.params)
+            await renderFullHtml(ctx,store,ctx.req.url)
+            await next()
+        })
         .get('/p/:id' , async (ctx, next) => {
-            const branch = matchRoutes(routes, '/p');
-            const { store } = getCreateStore(ctx,PReducer)
-            const promises = branch.map(({route}) => {
-                const fetch = route.component.fetch;
-                return fetch instanceof Function ? fetch(store,ctx.params) : Promise.resolve(null)
-            });
-            await Promise.all(promises).catch((err)=>{
-                console.log(err);
-            });
+
+            const {store} = await searchTemplate(ctx,PReducer,'/p',ctx.params)
+
             await renderFullHtml(ctx,store,`/p/${ctx.params.id}`)
             await next()
         })
         .get('/t/:id/:title' , async (ctx, next) => {
-            const branch = matchRoutes(routes, '/t');
-            const { store } = getCreateStore(ctx,TReducer)
-            const promises = branch.map(({route}) => {
-                const fetch = route.component.fetch;
-                return fetch instanceof Function ? fetch(store,ctx.params) : Promise.resolve(null)
-            });
-            await Promise.all(promises).catch((err)=>{
-                console.log(err);
-            });
+
+            const {store} = await searchTemplate(ctx,TReducer,'/t',ctx.params)
+
             await renderFullHtml(ctx,store,`/t/${ctx.params.id}/${ctx.params.title}`)
             await next()
+        })
+        .get('/search/:q' , async (ctx, next) => {
+
+            const {store} = await searchTemplate(ctx,TReducer,'/serach',ctx.params)
+
+            await renderFullHtml(ctx,store,`/search/${ctx.params.q}`)
+            await next()
+        })
+        .get('/archive', async (ctx, next)=> {
+            let url = ctx.req.url.substr(0,ctx.req.url.indexOf('?'))
+            url = url.length === 0 ? ctx.req.url : url;
+
+            const {store} = await searchTemplate(ctx,AReducer,url,ctx.request.query)
+
+            await renderFullHtml(ctx,store,url)
+            await next();
         })
         .get('/index', async (ctx, next) => {
             let url = ctx.req.url.substr(0,ctx.req.url.indexOf('?'))
             url = url.length === 0 ? ctx.req.url : url;
 
-            const branch = matchRoutes(routes, url);
-            let query = ctx.request.query
-            const { store } = getCreateStore(ctx,IndexReducer)
-            const promises = branch.map(({route}) => {
-                const fetch = route.component.fetch;
-                return fetch instanceof Function ? fetch(store,query) : Promise.resolve(null)
-            });
-            await Promise.all(promises).catch((err)=>{
-                console.log(err);
-            });
+            const {store} = await searchTemplate(ctx,IndexReducer,url,ctx.request.query)
 
             await renderFullHtml(ctx,store,url)
             await next();
@@ -84,7 +89,34 @@ app.listen(config.port, function() {
   console.log('服务器启动，监听 端口号： ' + config.port + '  running');
 });
 
-// 渲染模板
+/**
+ * 找寻路由匹配
+ * 
+ * @param {*} ctx 上下文
+ * @param {*} reducer redux
+ * @param {*} url 地址
+ * @param {*} query 查询参数
+ */
+async function searchTemplate(ctx,reducer,url,query) {
+    const branch = matchRoutes(routes, url);
+    const { store } = getCreateStore(ctx,reducer)
+    const promises = branch.map(({route}) => {
+        const fetch = route.component.fetch;
+        return fetch instanceof Function ? fetch(store,query) : Promise.resolve(null)
+    });
+    await Promise.all(promises).catch((err)=>{
+        console.log(err);
+    });
+    return {store}
+}
+
+/**
+ * 生成模板源代码
+ * 
+ * @param {*} ctx 上下文
+ * @param {*} store 状态管理
+ * @param {*} url 地址
+ */
 async function renderFullHtml(ctx,store,url) {
     const html = renderToString(
         <Provider store={store}>

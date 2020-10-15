@@ -7,7 +7,11 @@ import P from './p/index';
 import Related from './p/Related';
 import Comment from './p/comment';
 import TagArticle from './search/tag';
+import AIndex from './archive';
+import Search from './search/search'
+import Picture from './picture/index'
 
+// 这个用于client Redux
 const appReducer = combineReducers({
     ArtList,
     Banner,
@@ -16,7 +20,10 @@ const appReducer = combineReducers({
     P,
     Related,
     Comment,
-    TagArticle
+    TagArticle,
+    AIndex,
+    Search,
+    Picture
 })
 
 // 首页数据源
@@ -32,11 +39,21 @@ export const PReducer = combineReducers({
     Related,
     Comment
 })
-
 // 搜索文章数据源
 export const TReducer = combineReducers({
     TagArticle,
-    TagCloud
+    TagCloud,
+    Search
+})
+
+// archive数据源
+export const AReducer = combineReducers({
+    AIndex
+})
+
+// archive数据源
+export const ImgReducer = combineReducers({
+    Picture
 })
 
 // 统一返回数据

@@ -18,7 +18,6 @@ class index extends React.Component {
 
     static async fetch(store,query) {
         await store.dispatch(fetchTagArticle(query))
-        console.log(this.state)
         await TagCloud.fetch(store)
     }
 
