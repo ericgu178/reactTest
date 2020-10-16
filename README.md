@@ -11,10 +11,10 @@
 - React-redux
 - Redux
 - React-router
-- babel7.0
-- koa 
-- Ant UI 库
-- Php 接口语言
+- Babel7.0
+- Koa 
+- Ant UI
+- Php
 
 ## 🔨目录结构
 

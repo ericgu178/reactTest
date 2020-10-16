@@ -69,11 +69,16 @@ const style = {
         lineHeight: 1.2
     },
     content: {
+        display: '-webkit-box',
+        lineHeight: 1.8,
+        lineClamp: 3,
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+        wordWrap:'break-word',
         color:'#6c757d',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        fontSize:'14px'
+        fontSize:'15px'
     },
     bottom: {
         marginTop:'10px',
