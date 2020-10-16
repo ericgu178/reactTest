@@ -20,8 +20,9 @@ class carouselDom extends React.Component {
     }
 
     onClick(item) {
-        return this.props.history.push(`/p/${item.article_id}`)
+        window.location.href = `/p/${item.article_id}`
     }
+    
     render() {
         const list = this.state.data;
         const carousels = list.map(item => {
