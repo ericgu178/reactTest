@@ -72,6 +72,12 @@ class menu extends React.Component {
         return (
             <Menu.Item key={path} onClick={({ key }) => {
                 this.setState({ selectKeys: [key] })
+                if ('/biying' === key) {
+                    return window.open(window._.baseUrl + '/bing/index/index.html')
+                }
+                if ('/cangku' === key) {
+                    return window.open(window._.baseUrl + '/onedrive')
+                }
                 window.location.href = key
             }}>
                 {icon && icon}

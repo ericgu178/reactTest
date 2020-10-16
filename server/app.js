@@ -58,9 +58,8 @@ app.use(
             await next()
         })
         .get('/search/:q' , async (ctx, next) => {
-
-            const {store} = await searchTemplate(ctx,TReducer,'/serach',ctx.params)
-
+            const {store} = await searchTemplate(ctx,TReducer,'/search',ctx.params)
+            
             await renderFullHtml(ctx,store,`/search/${ctx.params.q}`)
             await next()
         })

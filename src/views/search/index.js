@@ -20,6 +20,7 @@ class index extends React.Component {
     toP(item) {
         window.location.href = `/p/${item.id}`
     }
+    
     render() {
         const listData = this.state.data;
         const { q } = this.props.match.params;

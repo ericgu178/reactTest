@@ -3,7 +3,6 @@ import { Card,Alert,Spin  } from 'antd';
 import { fetchPicture } from "../../store/actions/picture";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 class index extends React.Component {
@@ -12,8 +11,8 @@ class index extends React.Component {
         super(props);
         this.state = {
             ...props,
-            currentImage:0,
             viewerIsOpen:false,
+            set:[]
         }
     }
 
@@ -23,45 +22,59 @@ class index extends React.Component {
 
     closeLightbox() {
         this.setState({
-            currentImage:0,
             viewerIsOpen:false
         })
     }
 
-    openLightbox(event,{photo,index}) {
-        console.log(photo,index)
+    openLightbox(set) {
+        console.log(set)
         this.setState({
-            currentImage:index,
-            viewerIsOpen:true
+            viewerIsOpen:true,
+            set
         })
     }
 
     render() {
         const { Meta } = Card;
         const { data,loading } = this.state;
-        const photos = []
-        data.map((item)=>{
-            item.link_image.map((s) => {
-                photos.push({
+        const html = data.map((item)=>{
+            const set = item.link_image.map((s) => {
+                return {
                     src:s.image_path,
                     alt:s.image_path,
-                    width: Math.ceil(Math.random()*10),
-                    height: Math.ceil(Math.random()*10)
-                })
+                    width: 3,
+                    height: 4,
+                    describe:s.describe
+                }
             })
-            // return (
-            //     <Card
-            //         key={item.id}
-            //         hoverable
-            //         style={{ width: 'calc(33.33% - 10px)',height:'100%',marginRight:'10px',marginTop:'10px' }}
-            //         cover={}
-            //     >
-                    
-            //         <Meta title={item.picture_title}/>
-            //     </Card>
-            // )
+            return (
+                <Card
+                    key={item.id}
+                    hoverable
+                    style={{ width: 'calc(33.33% - 10px)',height:'100%',marginRight:'10px',marginTop:'10px' }}
+                    cover={
+                        <>
+                            <img alt="example" src={item.picture_url} onClick={this.openLightbox.bind(this,set)}/>
+                            <ModalGateway>
+                                {this.state.viewerIsOpen ? (
+                                    <Modal onClose={this.closeLightbox.bind(this)}>
+                                        <Carousel
+                                            views={this.state.set.map(x => ({
+                                              ...x,
+                                              srcset: x.src,
+                                              caption: x.describe || x.src
+                                            }))}
+                                        />
+                                    </Modal>
+                                ) : null}
+                            </ModalGateway>
+                        </>
+                    }
+                >
+                    <Meta title={item.picture_title}/>
+                </Card>
+            )
         })
-        console.log(photos)
         return (
             <>
                 <Alert
@@ -71,21 +84,7 @@ class index extends React.Component {
                 />
                 <Spin spinning={loading}>
                     <div style={{display:'flex',justifyContent:'flex-start',flexWrap:'wrap'}}>
-                        <Gallery onClick={this.openLightbox.bind(this)} photos={photos} direction={"column"}/>
-                        <ModalGateway>
-                            {this.state.viewerIsOpen ? (
-                              <Modal onClose={this.closeLightbox.bind(this)}>
-                                <Carousel
-                                  currentIndex={this.state.currentImage}
-                                  views={photos.map(x => ({
-                                    ...x,
-                                    srcset: x.src,
-                                    caption: x.alt
-                                  }))}
-                                />
-                              </Modal>
-                            ) : null}
-                        </ModalGateway>
+                        {html}
                     </div>
                 </Spin>
             </>
