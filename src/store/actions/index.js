@@ -4,13 +4,9 @@ import { getContent,getBanner,getTopViews,getTag } from "../../api/index"
 export const fetchArtList = params => {
     return async (dispatch, getState) => {
         let data = await getContent(params)
-        const result = [];
-        data.data.filter(item => {
-            const tags = [];
-            item.label_pk_ids.filter(tag => {
-                tags.push(tag.label_name)
-            })
-            result.push({
+        const result = data.data.map(item => {
+            const tags = item.label_pk_ids.map(tag => (tag.label_name))
+            return {
                 href: `/p/${item.id}`,
                 title: item.blog_title,
                 description: item.blog_describe.length > 120 ? item.blog_describe : item.blog_content.substr(0, 200),
@@ -18,7 +14,7 @@ export const fetchArtList = params => {
                 reads: item.reads,
                 img: `https://api.ericgu178.com/${item.material_id.filepath}`,
                 tags: tags.join(',')
-            })
+            }
         })
         
         dispatch({
@@ -69,14 +65,11 @@ export const fetchTopViews = () => {
 export const fetchTags = () => {
     return async (dispatch, getState) => {
         let result = await getTag();
-        const data = [];
-        result.data.filter(item => {
-            data.push({
-                id: item.id,
-                color: item.color,
-                title: item.label_name
-            })
-        })
+        const data = result.data.map(item => ({
+            id: item.id,
+            color: item.color,
+            title: item.label_name
+        }))
         dispatch({
             type: 'TAGCLOUNDS',
             data: { 

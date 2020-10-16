@@ -13,11 +13,15 @@ import { renderToString } from 'react-dom/server';
 import RouterConfig,{ routes } from "../src/router/index"
 import getCreateStore from './store';
 import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer}  from '../src/store/reducers';
+const Logger = require('koa-logger');
+
+
 // 配置文件
 const config = {
     port: 3040,
     title:'EricGU178的个人博客'
 };
+
 // 实例化 koa
 const app = new Koa();
 // 静态资源
@@ -30,6 +34,7 @@ app.use(
 );
 app.use(bodyParser());
 app.use(cors());
+app.use(Logger());
 
 // 设置路由
 app.use(

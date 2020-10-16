@@ -13,7 +13,7 @@ const ExampleFatherComments = (item) => {
     return (
         <Comment
             actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,item)}>回复</span>]}
-            author={<a>{item.ip} <Tag>{item.browser}</Tag><Tag>{item.os}</Tag></a>}
+            author={<span style={{cursor:'pointer'}}>{item.ip} <Tag>{item.browser}</Tag><Tag>{item.os}</Tag></span>}
             avatar={
                 <Avatar
                     src={require('../../assets/images/user.jpg')}
@@ -39,7 +39,7 @@ const ExampleSonComments = (item) => {
         return <Comment
                     key={k}
                     actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,i)}>回复</span>]}
-                    author={<a>{i.ip} <Tag>{i.browser}</Tag><Tag>{i.os}</Tag></a>}
+                    author={<span style={{cursor:'pointer'}}>{i.ip} <Tag>{i.browser}</Tag><Tag>{i.os}</Tag></span>}
                     avatar={
                         <Avatar
                             src={require('../../assets/images/user.jpg')}

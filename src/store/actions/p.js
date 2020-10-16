@@ -39,10 +39,7 @@ export const fetchP = (params) => {
 // 获取相关文章
 export const fetchRelated = (params) => {
     return async (dispatch, getState) => {
-        let ids = [];
-        params.map(item=>{
-            ids.push(item.id)
-        })
+        let ids = params.map( item =>(item.id))
         let result = await getRelevant({label_pk_ids:ids});
         dispatch({
             type: 'RELATED',

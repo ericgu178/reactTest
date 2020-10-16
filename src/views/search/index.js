@@ -71,8 +71,7 @@ const style = {
     content: {
         display: '-webkit-box',
         lineHeight: 1.8,
-        lineClamp: 3,
-        WebkitLineClamp: 3,
+        WebkitLineClamp: 4,
         WebkitBoxOrient: 'vertical',
         wordWrap:'break-word',
         color:'#6c757d',
