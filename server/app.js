@@ -15,7 +15,8 @@ import getCreateStore from './store';
 import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer}  from '../src/store/reducers';
 // 配置文件
 const config = {
-    port: 3040
+    port: 3040,
+    title:'EricGU178的个人博客'
 };
 // 实例化 koa
 const app = new Koa();
@@ -35,32 +36,33 @@ app.use(
     new Router()
         .get('/about' , async (ctx, next) => {
             const { store } = getCreateStore(ctx,AReducer)
-            await renderFullHtml(ctx,store,ctx.req.url)
+            await renderFullHtml(ctx,store,ctx.req.url,'关于我')
             await next()
         })
         .get('/img' , async (ctx, next) => {
             const {store} = await searchTemplate(ctx,ImgReducer,ctx.req.url,ctx.params)
-            await renderFullHtml(ctx,store,ctx.req.url)
+            await renderFullHtml(ctx,store,ctx.req.url,'相册图片')
             await next()
         })
         .get('/p/:id' , async (ctx, next) => {
 
             const {store} = await searchTemplate(ctx,PReducer,'/p',ctx.params)
+            const state = store.getState();
 
-            await renderFullHtml(ctx,store,`/p/${ctx.params.id}`)
+            await renderFullHtml(ctx,store,`/p/${ctx.params.id}`,state.P.data.blog_title)
             await next()
         })
         .get('/t/:id/:title' , async (ctx, next) => {
 
             const {store} = await searchTemplate(ctx,TReducer,'/t',ctx.params)
 
-            await renderFullHtml(ctx,store,`/t/${ctx.params.id}/${ctx.params.title}`)
+            await renderFullHtml(ctx,store,`/t/${ctx.params.id}/${ctx.params.title}`,`标签-${ctx.params.title}`)
             await next()
         })
         .get('/search/:q' , async (ctx, next) => {
             const {store} = await searchTemplate(ctx,TReducer,'/search',ctx.params)
             
-            await renderFullHtml(ctx,store,`/search/${ctx.params.q}`)
+            await renderFullHtml(ctx,store,`/search/${ctx.params.q}`,`检索关键字-${ctx.params.q}`)
             await next()
         })
         .get('/archive', async (ctx, next)=> {
@@ -69,7 +71,13 @@ app.use(
 
             const {store} = await searchTemplate(ctx,AReducer,url,ctx.request.query)
 
-            await renderFullHtml(ctx,store,url)
+            await renderFullHtml(ctx,store,url,(ctx.request.query.date || new Date().getFullYear()) + '年的归档')
+            await next();
+        })
+        .get('/', async (ctx, next) => {
+            const {store} = await searchTemplate(ctx,IndexReducer,'/index',ctx.request.query)
+
+            await renderFullHtml(ctx,store,'/index')
             await next();
         })
         .get('/index', async (ctx, next) => {
@@ -116,7 +124,7 @@ async function searchTemplate(ctx,reducer,url,query) {
  * @param {*} store 状态管理
  * @param {*} url 地址
  */
-async function renderFullHtml(ctx,store,url) {
+async function renderFullHtml(ctx,store,url,title = undefined) {
     const html = renderToString(
         <Provider store={store}>
             <StaticRouter location={url} context={{}}>
@@ -137,7 +145,8 @@ async function renderFullHtml(ctx,store,url) {
         });
     });
     let initState = store.getState();
-    ctx.response.body = shtml.replace('{{title}}', 'EricGU178 个人博客');
+
+    ctx.response.body = shtml.replace('{{title}}', (title !== undefined ? title + ' | ' : '') + config.title);
     ctx.response.body = ctx.response.body.replace('{{script}}', `<script>window.__INITIAL_STATE__ = ${JSON.stringify(initState)}</script>`);
     ctx.response.body = ctx.response.body.replace('{{root}}', html);
 }

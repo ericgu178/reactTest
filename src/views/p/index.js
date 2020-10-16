@@ -26,9 +26,6 @@ class P extends React.Component {
         await RArticles.fetch(store,data.label_pk_ids)
     }
 
-    componentDidMount() {
-        document.title = this.state.data.blog_title        
-    }
     render() {
         const html = this.state.html
         return (
