@@ -15,7 +15,6 @@ import getCreateStore from './store';
 import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer}  from '../src/store/reducers';
 const Logger = require('koa-logger');
 
-
 // 配置文件
 const config = {
     port: 3040,
