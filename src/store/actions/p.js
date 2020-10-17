@@ -22,7 +22,6 @@ export const fetchP = (params) => {
             smartypants: true,
             highlight: function (code) {
                 code = htmlDecode(code)
-                console.log(hljs.highlightAuto(code).value)
                 return hljs.highlightAuto(code).value;
             }
         });
