@@ -21,10 +21,13 @@ export const fetchP = (params) => {
             smartLists: true,
             smartypants: true,
             highlight: function (code) {
+                code = htmlDecode(code)
+                console.log(hljs.highlightAuto(code).value)
                 return hljs.highlightAuto(code).value;
             }
         });
         let html = marked(result.data.blog_content);
+        delete result.data.blog_content;
         dispatch({
             type: 'P',
             data: { 

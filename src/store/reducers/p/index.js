@@ -3,7 +3,7 @@ const defaultStatus = {
     html:'',
     loading:true
 }
-// banner图片数据
+// 文章具体数据
 export default function P (state = {
     ...defaultStatus
 },action) {
