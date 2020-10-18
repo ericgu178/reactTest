@@ -22,6 +22,19 @@ class list extends React.Component {
     onChange = async (page) => {
         window.location.href = `/index?page=${page}`
     }
+
+    handleImageLoaded(stateField) {
+        const temp = {}
+        temp[stateField] = true
+        this.setState(temp);
+    }
+     
+    handleImageErrored(stateField) {
+        const temp = {}
+        temp[stateField] = false
+        this.setState(temp);
+    }
+
     render() {
         const listData = this.state.listData;
         const IconText = ({ icon, text }) => (
@@ -43,7 +56,7 @@ class list extends React.Component {
                         total: this.state.pageTotal
                     }}
                     dataSource={listData}
-                    renderItem={item => (
+                    renderItem={(item,index) => (
                         <Skeleton loading={this.state.contentLoading} title active avatar >
 
                             <List.Item
@@ -56,7 +69,13 @@ class list extends React.Component {
                                     <IconText icon={TagOutlined} text={item.tags} key="list-vertical-like-tag" />,
                                 ]}
                                 extra={
-                                    <img draggable="false" style={{ objectFit: 'cover', paddingRight: '1vh' }} width={272} height="100%" alt={item.img} src={item.img} />
+                                    <div style={{width:'100%',height:'100%',position:'relative',cursor:'zoom-in'}}>
+                                    <img draggable="false" 
+                                        onLoad={this.handleImageLoaded.bind(this,'p' + index)}
+                                        onError={this.handleImageErrored.bind(this,'p' + index)}
+                                        style={{ objectFit: 'cover', paddingRight: '1vh' }} width={272} height="100%" alt={item.img} src={item.img} />
+                                    <a href={item.href} className="mark" style={{opacity:this.state['p' + index] === true ? 0 : 1}}> </a>
+                                    </div>
                                 }
                             >
 

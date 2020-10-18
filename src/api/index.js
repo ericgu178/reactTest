@@ -49,4 +49,7 @@ export const searchLabelList = params => {
 export const getPicture = params => {
     return getRequest('/index/picture/index',params);
 }
-
+// biying图片
+export const getBiyingPicture = params => {
+    return getRequest('/bing/index/index',params);
+}

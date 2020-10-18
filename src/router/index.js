@@ -10,6 +10,7 @@ import archive from '../views/archive';
 import search from '../views/search';
 import tagArticle from '../views/search/tagArticle';
 import picture from '../views/picture';
+import biying from '../views/biying';
 
 class index extends React.Component {
     // setTitle = title => () => document.title = title;
@@ -27,6 +28,7 @@ class index extends React.Component {
                     <RenderRoutes path="/search/:q" component={search}/>
                     <RenderRoutes path="/t/:id/:title" component={tagArticle}/>
                     <RenderRoutes path="/img" component={picture}/>
+                    <RenderRoutes path="/biying" component={biying}/>
                     <Redirect from="/" to="/index" />
                 </Switch>
             </div>
@@ -44,5 +46,6 @@ export const routes = [
     { path:'/t', component:tagArticle,exact:true},
     { path:'/archive', component:archive },
     { path:'/search', component:search },
-    { path:'/img', component:picture }
+    { path:'/img', component:picture },
+    { path:'/biying', component:biying }
 ]

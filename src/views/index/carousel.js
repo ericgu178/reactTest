@@ -22,13 +22,33 @@ class carouselDom extends React.Component {
     onClick(item) {
         window.location.href = `/p/${item.article_id}`
     }
+
+    handleImageLoaded(stateField) {
+        const temp = {}
+        temp[stateField] = true
+        this.setState(temp);
+    }
+     
+    handleImageErrored(stateField) {
+        const temp = {}
+        temp[stateField] = false
+        this.setState(temp);
+    }
     
     render() {
         const list = this.state.data;
-        const carousels = list.map(item => {
+        const carousels = list.map((item,index) => {
             return (
-                <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }} key={item}>
-                    <img onClick={this.onClick.bind(this, item)} style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} src={this.state.url + item.material_id.filepath} alt={item} />
+                <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }} key={index}>
+                    <div style={{ width: '100%', position: 'relative', height: '100%'}}>
+                        <img onLoad={this.handleImageLoaded.bind(this,'p' + index)}
+                        onError={this.handleImageErrored.bind(this,'p' + index)} 
+                        onClick={this.onClick.bind(this, item)} 
+                        style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} 
+                        src={this.state.url + item.material_id.filepath} 
+                        alt={item} />
+                        <a href={`/p/${item.article_id}`} className="mark" style={{opacity:this.state['p' + index] === true ? 0 : 1}}> </a>
+                    </div>
                     <div style={style.div}>
                         <Title level={2} style={{ color: '#fff', height: '100%', display: 'flex', alignItems: 'center' }}>
                             {item.banner_title.substr(0, 10)}

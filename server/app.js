@@ -12,7 +12,7 @@ import { matchRoutes } from 'react-router-config';
 import { renderToString } from 'react-dom/server';
 import RouterConfig,{ routes } from "../src/router/index"
 import getCreateStore from './store';
-import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer}  from '../src/store/reducers';
+import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer,BiyingReducer}  from '../src/store/reducers';
 const Logger = require('koa-logger');
 
 // 配置文件
@@ -61,6 +61,14 @@ app.use(
             const {store} = await searchTemplate(ctx,TReducer,'/t',ctx.params)
 
             await renderFullHtml(ctx,store,`/t/${ctx.params.id}/${ctx.params.title}`,`标签-${ctx.params.title}`)
+            await next()
+        })
+        .get('/biying' , async (ctx, next) => {
+            let url = ctx.req.url.substr(0,ctx.req.url.indexOf('?'))
+            url = url.length === 0 ? ctx.req.url : url;
+            const {store} = await searchTemplate(ctx,BiyingReducer,url,ctx.request.query)
+            
+            await renderFullHtml(ctx,store,url,'必应每日高清壁纸')
             await next()
         })
         .get('/search/:q' , async (ctx, next) => {

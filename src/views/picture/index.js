@@ -27,7 +27,6 @@ class index extends React.Component {
     }
 
     openLightbox(set) {
-        console.log(set)
         this.setState({
             viewerIsOpen:true,
             set

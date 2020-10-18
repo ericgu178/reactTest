@@ -10,7 +10,7 @@ import TagArticle from './search/tag';
 import AIndex from './archive';
 import Search from './search/search'
 import Picture from './picture/index'
-
+import BIndex from './biying/index'
 // 这个用于client Redux
 const appReducer = combineReducers({
     ArtList,
@@ -23,7 +23,8 @@ const appReducer = combineReducers({
     TagArticle,
     AIndex,
     Search,
-    Picture
+    Picture,
+    BIndex
 })
 
 // 首页数据源
@@ -55,6 +56,12 @@ export const AReducer = combineReducers({
 export const ImgReducer = combineReducers({
     Picture
 })
+
+// 必应数据源
+export const BiyingReducer = combineReducers({
+    BIndex
+})
+
 
 // 统一返回数据
 export default appReducer
