@@ -7,12 +7,14 @@ import fs from 'fs';
 import koaStatic from 'koa-static';
 import path from 'path';
 import { Provider } from 'react-redux';
-import { StaticRouter } from 'react-router-dom'
+import { StaticRouter,Switch,Route } from 'react-router-dom'
 import { matchRoutes } from 'react-router-config';
 import { renderToString } from 'react-dom/server';
-import RouterConfig,{ routes } from "../src/router/index"
+import { routes } from "../src/router/index"
 import getCreateStore from './store';
 import {TReducer,PReducer,IndexReducer,AReducer,ImgReducer,BiyingReducer}  from '../src/store/reducers';
+import index from "../src/views/main"
+
 const Logger = require('koa-logger');
 
 // 配置文件
@@ -140,7 +142,9 @@ async function renderFullHtml(ctx,store,url,title = undefined) {
     const html = renderToString(
         <Provider store={store}>
             <StaticRouter location={url} context={{}}>
-                <RouterConfig/>
+                <Switch>
+                    <Route path="/" component={index} />
+                </Switch>
             </StaticRouter> 
         </Provider>
     );

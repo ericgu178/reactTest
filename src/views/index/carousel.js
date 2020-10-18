@@ -59,11 +59,9 @@ class carouselDom extends React.Component {
             )
         })
         return (
-            <>
-                <Carousel autoplay dotPosition="bottom">
-                    {carousels}
-                </Carousel>
-            </>
+            <Carousel autoplay dotPosition="bottom" autoplaySpeed={6000}>
+                {carousels}
+            </Carousel>
         )
     }
 }
