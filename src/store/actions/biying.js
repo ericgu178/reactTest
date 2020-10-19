@@ -9,11 +9,15 @@ export const fetchBiying = params => {
     return async (dispatch, getState) => {
         let result = await getBiyingPicture(params)
         const data = result.data.map(item=>{
+            console.log(item)
             return {
                 src: item.file_path || item.show_pic,
-                width: 4,
-                height: 3,
                 title:item.title,
+                downloads:item.downloads,
+                likes:item.likes,
+                create_time:item.create_time,
+                views:item.views,
+                pictureId:item.id
             }
         })
         dispatch({

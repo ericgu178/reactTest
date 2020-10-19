@@ -3,7 +3,9 @@ import { fetchBiying } from "../../store/actions/biying"
 import { connect } from "react-redux"
 import PropTypes from 'prop-types';
 import Carousel, { Modal, ModalGateway } from "react-images";
+import { getBiyingView } from '../../api/index'
 import { Pagination,Alert,Tooltip } from 'antd';
+import {Header} from './header'
 import './index.css'
 class Index extends React.Component {
 
@@ -20,10 +22,18 @@ class Index extends React.Component {
         return await store.dispatch(fetchBiying(query));
     }
 
-    openLightbox = (index) => {
+    openLightbox = async (index,row) => {
+        await getBiyingView({id:row.pictureId})
+        const data = this.state.data.map(item=>{
+            if (row.pictureId === item.pictureId) {
+                item.views += 1
+            }
+            return {...item}
+        })
         this.setState({
             currentIndex:index,
-            viewerIsOpen:true
+            viewerIsOpen:true,
+            data:data
         })
     }
 
@@ -51,7 +61,7 @@ class Index extends React.Component {
     }
 
     render() {
-        const {data,currentIndex,viewerIsOpen,total,page,pageSize} = this.state;
+        const {currentIndex,viewerIsOpen,total,page,pageSize} = this.state;
         return (
             <div>
                 <Alert
@@ -61,9 +71,9 @@ class Index extends React.Component {
                     type="info"
                 />
                 <div style={{display:'flex',flexFlow:'row wrap',width:'100%',height:'100%'}}>
-                    {data.map((item,index)=>{
+                    {this.state.data.map((item,index)=>{
                         return (
-                            <div key={index} className="block" onClick={this.openLightbox.bind(this,index)} >
+                            <div key={index} className="block" onClick={this.openLightbox.bind(this,index,item)} >
                                 <Tooltip  placement="top" title={item.title}>
                                     <img 
                                         src={item.src}
@@ -82,8 +92,9 @@ class Index extends React.Component {
                     {viewerIsOpen ? (
                         <Modal onClose={this.closeLightbox.bind(this)}>
                             <Carousel
+                                components={{ Header: Header }}
                                 currentIndex={currentIndex}
-                                views={data.map(x => ({
+                                views={this.state.data.map(x => ({
                                     ...x,
                                     srcset: x.src,
                                     caption: x.title

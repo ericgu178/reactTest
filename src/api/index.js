@@ -53,3 +53,13 @@ export const getPicture = params => {
 export const getBiyingPicture = params => {
     return getRequest('/bing/index/index',params);
 }
+// biying图片 喜欢
+export const postLikes = params => {
+    return postRequest('/bing/index/likes',params);
+}
+// biying图片 查看
+export const getBiyingView = params => {
+    return getRequest('/bing/index/view',params);
+}
+
+
