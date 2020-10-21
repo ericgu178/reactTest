@@ -4,7 +4,7 @@ import List from './list';
 import TopViews from '../widget/top_views';
 import TagCloud from '../widget/tag_cloud';
 import Subscribe from '../widget/subscribe';
-
+import { pv } from '../../api/index';
 import './index.css';
 class index extends React.Component {
     
@@ -13,6 +13,11 @@ class index extends React.Component {
         await TopViews.fetch(store)
         await CarouselDom.fetch(store)
         await TagCloud.fetch(store)
+    }
+
+    // 访问数据
+    async componentDidMount() {
+        await pv()
     }
 
     render() {

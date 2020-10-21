@@ -44,6 +44,10 @@ export const submitComment = params => {
 export const searchLabelList = params => {
     return getRequest('/index/index/searchLabelList',params); 
 }
+// 增添访问数据
+export const pv = params => {
+    return getRequest('/index/index/setPv',params); 
+}
 
 // 照片墙
 export const getPicture = params => {
