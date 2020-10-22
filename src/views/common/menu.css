@@ -13,5 +13,6 @@
 
 
 .ant-layout {
-    background: #f4f4f4;
+    /* background: #f4f4f4; */
+    background-image: linear-gradient(#cfd9df, #e2ebf0);
 }
