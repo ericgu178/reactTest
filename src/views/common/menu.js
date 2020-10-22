@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom'
 import React from "react"
 import { Menu } from 'antd'
-
+import './menu.css';
 class menu extends React.Component {
     state = {
         selectKeys: [],
@@ -111,6 +111,10 @@ class menu extends React.Component {
                 defaultSelectedKeys={['/index']}
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
+                style={{
+                    color:'#fff',
+                    height: '64px'
+                }}
             >
                 {this.props.menus && this.props.menus.map(item => {
                     return item.subs && item.subs.length > 0 ? this.renderSubMenu(item) : this.renderMenuItem(item)
@@ -119,7 +123,6 @@ class menu extends React.Component {
         )
     }
 }
-
 // react-router-dom 里的 withRouter 作用 
 // 把不是通过路由切换过来的组件中
 // 将react-router 的 history、location、match 三个对象传入props对象上

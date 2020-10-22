@@ -13,16 +13,14 @@ const menus = [{
     path: '/about',
     title: '关于',
     icon: <UserOutlined />,
-}, {
-    path: '/other',
-    title: '其他',
-    icon: <MenuOutlined />,
-    subs:[{
-        path: '/biying',
-        title: '必应每日图片',
-        icon: <PictureOutlined />,
-    }]
-}, {
+}
+// {
+//     path: '/other',
+//     title: '其他',
+//     icon: <MenuOutlined />,
+//     subs:[]
+// }
+, {
     path: '/archive',
     title: '归档',
     icon: <HistoryOutlined />,
@@ -30,6 +28,10 @@ const menus = [{
     path: '/cangku',
     title: '仓库',
     icon: <ApartmentOutlined />,
+}, {
+    path: '/biying',
+    title: '必应每日图片',
+    icon: <PictureOutlined />,
 }, {
     path: '/img',
     title: '照片墙',
