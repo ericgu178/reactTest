@@ -82,7 +82,7 @@ const style = {
         borderRadius: '5px',
         lineHeight: '6vh',
         marginLeft: '.5vh',
-        paddingLeft: '1vh',
+        padding: '0 1vh',
         color: '#000'
     }
 }

@@ -17,6 +17,13 @@ class SearchDom extends React.Component {
                     placeholder="输入关键字搜索"
                     enterButton="搜索"
                     size="middle"
+                    style={{
+                        background:'#001529',
+                        border:'0',
+                        outline: 'none',
+                        color: '#fff'
+                    }}
+                    onPressEnter={this.onSearch.bind(this)}
                     onSearch={this.onSearch.bind(this)}
                 />
             </>

@@ -76,3 +76,6 @@ iframe {
     padding:0 20px;
     height:400px; 
 }
+.ant-input-focused, .ant-input:focus {
+    box-shadow:0
+}
