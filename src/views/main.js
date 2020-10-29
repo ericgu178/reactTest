@@ -1,7 +1,7 @@
 import React from "react";
 import './main.css';
 import { Layout } from "antd";
-import { UserOutlined, MenuOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined,CameraOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined,HistoryOutlined,ApartmentOutlined,PictureOutlined,CameraOutlined } from '@ant-design/icons';
 import Menus from "./common/menu";
 import Router from "../router/index";
 import Search from "./common/search";

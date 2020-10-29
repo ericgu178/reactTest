@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchTopViews } from "../../store/actions/index"
 import { connect } from 'react-redux';
+import { RiseOutlined } from "@ant-design/icons"
+
 class TopViews extends React.Component {
     constructor(props) {
         super(props)
@@ -26,7 +28,7 @@ class TopViews extends React.Component {
     render() {
         return (
             <div className="widget" style={styles.topviews}>
-                <Card title={this.state.title} bordered={false}>
+                <Card title={<><RiseOutlined/> {this.state.title}</>} bordered={false}>
                     <Skeleton loading={this.state.loading}>
                         <List
                             itemLayout="horizontal"

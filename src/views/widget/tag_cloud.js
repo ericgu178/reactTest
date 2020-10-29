@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchTags } from "../../store/actions/index"
 import { connect } from 'react-redux';
+import { TagsOutlined } from "@ant-design/icons"
+
 class TagCloud extends React.Component {
     constructor(props) {
         super(props)
@@ -30,7 +32,7 @@ class TagCloud extends React.Component {
         })
         return (
             <div className="widget">
-                <Card title={this.state.title} bordered={false}>
+                <Card title={<><TagsOutlined /> {this.state.title}</>} bordered={false}>
                     {tags}
                 </Card>
             </div>
