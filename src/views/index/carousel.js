@@ -71,7 +71,7 @@ const style = {
         top: '70%',
         width: '100%',
         height: '8vh',
-        background: 'rgb(0,0,0)',
+        background: 'rgba(0, 0, 0,0.4)',
         cursor: 'pointer',
         paddingLeft: '5vh',
     },

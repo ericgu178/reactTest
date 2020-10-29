@@ -9,7 +9,6 @@ export const fetchBiying = params => {
     return async (dispatch, getState) => {
         let result = await getBiyingPicture(params)
         const data = result.data.map(item=>{
-            console.log(item)
             return {
                 src: item.file_path || item.show_pic,
                 title:item.title,
