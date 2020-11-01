@@ -72,7 +72,7 @@ class list extends React.Component {
                                     <img draggable="false" 
                                         onLoad={this.handleImageLoaded.bind(this,'p' + index)}
                                         onError={this.handleImageErrored.bind(this,'p' + index)}
-                                        style={{ objectFit: 'cover', paddingRight: '1vh' }} width={272} height="100%" alt={item.img} src={item.img} />
+                                        style={{ objectFit: 'cover',boxShadow: '4px 6px 10px rgba(0,0,0,.4)',borderRadius:'10px' }} width={272} height="100%" alt={item.img} src={item.img} />
                                     <a href={item.href} className="mark" style={{opacity:this.state['p' + index] === true ? 0 : 1}}> </a>
                                     </div>
                                 }

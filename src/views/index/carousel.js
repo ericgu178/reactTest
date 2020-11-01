@@ -40,7 +40,7 @@ class carouselDom extends React.Component {
                     <div style={{ width: '100%', position: 'relative', height: '100%'}}>
                         <img onLoad={this.handleImageLoaded.bind(this,'p' + index)}
                         onError={this.handleImageErrored.bind(this,'p' + index)} 
-                        style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} 
+                        style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer'}} 
                         src={this.state.url + item.material_id.filepath} 
                         alt={item} />
                         <a href={`/p/${item.article_id}`} className="mark" style={{opacity:this.state['p' + index] === true ? 0 : 1}}> </a>

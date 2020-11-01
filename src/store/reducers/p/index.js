@@ -1,7 +1,8 @@
 const defaultStatus = {
     data:[],
     html:'',
-    loading:true
+    loading:true,
+    url:'https://api.ericgu178.com'
 }
 // 文章具体数据
 export default function P (state = {
@@ -10,9 +11,10 @@ export default function P (state = {
     switch (action.type) {
         case 'P':
             state = {
-                data:action.data ? action.data.data : defaultStatus.data,
-                html:action.data ? action.data.html : defaultStatus.html,
-                loading:action.data ? action.data.loading : defaultStatus.loading,
+                data:action.data ? action.data.data : state.data,
+                html:action.data ? action.data.html : state.html,
+                loading:action.data ? action.data.loading : state.loading,
+                url:state.url
             };
             return state;
         default:
