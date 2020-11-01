@@ -17,9 +17,6 @@ class RArticles extends React.Component {
         return store.dispatch(fetchRelated(params))
     }
 
-    toP(item) {
-        window.location.href = `/p/${item.id}`
-    }
     render() {
         const listData = this.state.data
         return (
@@ -31,13 +28,15 @@ class RArticles extends React.Component {
                     size="large"
                     dataSource={listData}
                     renderItem={item => (
-                        <div className="re" onClick={this.toP.bind(this,item)}>
-                            <div style={style.title}>{item.blog_title}</div>
-                            <div style={style.content}>{item.blog_describe}</div>
-                            <div style={style.bottom}>
-                                <div>阅读 {item.reads}次</div>
+                        <a href={`/p/${item.id}`}>
+                            <div className="re">
+                                <div style={style.title}>{item.blog_title}</div>
+                                <div style={style.content}>{item.blog_describe}</div>
+                                <div style={style.bottom}>
+                                    <div style={{color:'#000'}}>浏览 {item.reads} 次</div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     )}
                 />
                 </Card>

@@ -19,10 +19,6 @@ class carouselDom extends React.Component {
         return store.dispatch(fetchBanner())
     }
 
-    onClick(item) {
-        window.location.href = `/p/${item.article_id}`
-    }
-
     handleImageLoaded(stateField) {
         const temp = {}
         temp[stateField] = true
@@ -39,11 +35,11 @@ class carouselDom extends React.Component {
         const list = this.state.data;
         const carousels = list.map((item,index) => {
             return (
-                <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }} key={index}>
+                <a href={`/p/${item.article_id}`} key={index}>
+                <div style={{ width: '100%', position: 'relative', height: '100%', cursor: 'pointer' }}>
                     <div style={{ width: '100%', position: 'relative', height: '100%'}}>
                         <img onLoad={this.handleImageLoaded.bind(this,'p' + index)}
                         onError={this.handleImageErrored.bind(this,'p' + index)} 
-                        onClick={this.onClick.bind(this, item)} 
                         style={{ width: '100%', height: '50vh', objectFit: 'cover', cursor: 'pointer' }} 
                         src={this.state.url + item.material_id.filepath} 
                         alt={item} />
@@ -56,6 +52,7 @@ class carouselDom extends React.Component {
                         </Title>
                     </div>
                 </div>
+                </a>
             )
         })
         return (

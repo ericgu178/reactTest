@@ -1,11 +1,14 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { List,Skeleton,Alert  } from "antd";
+import { List,Skeleton,Alert,Tooltip } from "antd";
 import TagCloud from '../widget/tag_cloud';
 import Subscribe from '../widget/subscribe';
 import { fetchTagArticle } from "../../store/actions/search";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
 class index extends React.Component {
 
@@ -19,10 +22,6 @@ class index extends React.Component {
     static async fetch(store,query) {
         await store.dispatch(fetchTagArticle(query))
         await TagCloud.fetch(store)
-    }
-
-    toP(item) {
-        window.location.href = `/p/${item.id}`;
     }
 
     render() {
@@ -41,16 +40,18 @@ class index extends React.Component {
                         size="large"
                         loading={this.state.loading}
                         dataSource={listData}
-                        renderItem={item => (
+                        renderItem={(item,index) => (
                             <Skeleton loading={this.state.loading} active>
-                            <div className="re" onClick={this.toP.bind(this,item)}>
-                                <div style={style.title}>{item.blog_title}</div>
-                                <div style={style.content}>{item.blog_describe}</div>
-                                <div style={style.bottom}>
-                                    <div>阅读 {item.reads}次</div>
-                                    <div>发布时间 {item.create_time}</div>
-                                </div>
-                            </div>
+                                <a href={`/p/${item.id}`} key={index}>
+                                    <div className="re">
+                                        <div style={style.title}>{item.blog_title}</div>
+                                        <div style={style.content}>{item.blog_describe}</div>
+                                        <div style={style.bottom}>
+                                            <div style={{color:'#000'}}>浏览 {item.reads} 次</div>
+                                            <div style={{color:'#000'}}>{moment(item.create_time).fromNow()} 发布</div>
+                                        </div>
+                                    </div>
+                                </a>
                             </Skeleton>
                         )}
                     />

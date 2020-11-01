@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { ClockCircleOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
 import { fetchArtList } from "../../store/actions/index"
 import { connect } from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
 class list extends React.Component {
     constructor(props){
@@ -16,9 +19,7 @@ class list extends React.Component {
     static fetch(store,params){
         return store.dispatch(fetchArtList(params))
     }
-    onClick(item) {
-        window.location.href = item.href
-    }
+
     onChange = async (page) => {
         window.location.href = `/index?page=${page}`
     }
@@ -58,13 +59,11 @@ class list extends React.Component {
                     dataSource={listData}
                     renderItem={(item,index) => (
                         <Skeleton loading={this.state.contentLoading} title active avatar >
-
+                            <a href={item.href} key={index}>
                             <List.Item
-                                onClick={this.onClick.bind(this, item)}
                                 className="list"
-                                key={item.title}
                                 actions={[
-                                    <IconText icon={ClockCircleOutlined} text={item.create_time} key="list-vertical-like-o" />,
+                                    <IconText icon={ClockCircleOutlined} text={moment(item.create_time).fromNow()} key="list-vertical-like-o" />,
                                     <IconText icon={EyeOutlined} text={item.reads} key="list-vertical-message" />,
                                     <IconText icon={TagOutlined} text={item.tags} key="list-vertical-like-tag" />,
                                 ]}
@@ -78,12 +77,12 @@ class list extends React.Component {
                                     </div>
                                 }
                             >
-
                                 <List.Item.Meta
                                     title={<span style={{ cursor: 'pointer', color: '#000', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
                                     description={item.description}
                                 />
                             </List.Item>
+                            </a>
                         </Skeleton>
                     )}
                 />

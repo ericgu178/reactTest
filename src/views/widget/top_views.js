@@ -21,10 +21,6 @@ class TopViews extends React.Component {
         return store.dispatch(fetchTopViews())
     }
 
-    onClick(id) {
-        window.location.href = `/p/${id}`
-    }
-
     render() {
         return (
             <div className="widget" style={styles.topviews}>
@@ -34,6 +30,7 @@ class TopViews extends React.Component {
                             itemLayout="horizontal"
                             dataSource={this.state.data}
                             renderItem={item => (
+                                <a href={'/p/' + item.id}>
                                 <List.Item
                                     key={item.blog_title}
                                     actions={[
@@ -45,11 +42,10 @@ class TopViews extends React.Component {
                                 >
                                     <List.Item.Meta
                                         style={{ cursor: 'pointer' }}
-                                        onClick={this.onClick.bind(this, item.id)}
-                                        avatar={<img style={{ width: '10vh', height: '100%', objectFit: 'cover' }} alt="logo" src={this.state.url + item.material_id.filepath} />}
                                         title={item.blog_title.length > 40 ? item.blog_title.substr(0, 40) + '...' : item.blog_title}
                                     />
                                 </List.Item>
+                                </a>
                             )}
                         />
                     </Skeleton>

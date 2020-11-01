@@ -25,7 +25,7 @@ const menus = [{
     title: '归档',
     icon: <HistoryOutlined />,
 }, {
-    path: '/cangku',
+    path: '/onedrive',
     title: '仓库',
     icon: <ApartmentOutlined />,
 }, {

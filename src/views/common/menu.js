@@ -1,6 +1,7 @@
-import { withRouter } from 'react-router-dom'
-import React from "react"
-import { Menu } from 'antd'
+import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { Menu, notification  } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import './menu.css';
 class menu extends React.Component {
     state = {
@@ -50,14 +51,25 @@ class menu extends React.Component {
     // 如需通过网络请求获取数据，此处是实例化请求的好地方。 相当于 vue 的 mounted 挂载
     componentDidMount() {
         this.setState({ selectKeys: [this.props.location.pathname] })
+        if (this.props.location.pathname === '/index' || this.props.location.pathname === '/') {
+            notification.open({
+            message: <span style={{color:'#e0ed5e',fontStyle:'italic',fontSize:'20px',fontWeight:'900'}}>{window._.welcomeTitle}</span>,
+                description:<>
+                    <p style={{color:'#fe9a00',fontSize:'18px',fontWeight:'bold'}}>{window._.welcomeDesCn}</p>
+                    <p style={{color:'#fe9a00',fontSize:'18px',fontWeight:'bold'}}>{window._.welcomeDesUs}</p>
+                </>,
+                top:70,
+                closeIcon:<CloseOutlined style={{color:'#e0ed5e',fontSize:'20px',fontWeight:'900'}}/>,
+                placement:'topLeft',
+                style:{
+                    background:'rgba(10,10,10,.7)',
+                    color:'#fe9a00',
+                    borderRadius:'5px'
+                }
+            });
+        }
         // 监听路由
         this.props.history.listen(location => {
-            if (location.pathname === '/cangku') {
-                return window.open(window._.baseUrl + '/onedrive')
-            }
-            if (location.pathname === '/biying') {
-                return window.open(window._.baseUrl + '/bing/index/index.html')
-            }
             this.setState({ selectKeys: [location.pathname] })
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
             if (this.props.location.pathname !== location.pathname) {
@@ -72,9 +84,6 @@ class menu extends React.Component {
         return (
             <Menu.Item key={path} onClick={({ key }) => {
                 this.setState({ selectKeys: [key] })
-                if ('/cangku' === key) {
-                    return window.open(window._.baseUrl + '/onedrive')
-                }
                 window.location.href = key
             }}>
                 {icon && icon}

@@ -18,15 +18,14 @@ class TagCloud extends React.Component {
     static fetch(store) {
         return store.dispatch(fetchTags())
     }
-    // 跳转 tag 页
-    onChangeTag(item) {
-        window.location.href = '/t/' + item.id + '/' + item.title
-    }
+
     render() {
         const tags = this.state.data.map(item => {
             return (
                 <Tooltip title={item.title} key={item.title}>
-                    <Tag onClick={this.onChangeTag.bind(this, item)} style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
+                    <a href={'/t/' + item.id + '/' + item.title}>
+                        <Tag style={{ marginBottom: '1vh',cursor:'pointer' }} key={item.title} color={item.color}><span style={{ fontSize: '16px', fontWeight: 'bold', padding: '1vh', display: 'inline-block' }}>{item.title}</span></Tag>
+                    </a>
                 </Tooltip>
             )
         })

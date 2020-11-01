@@ -2,6 +2,13 @@
     font-family: 'Boink'; 
     src: url('../assets/fonts/Boink.ttf');	
 }
+a {
+    text-decoration: none;
+}
+
+.ant-list-split .ant-list-item {
+    border-bottom:1px solid #f0f0f0 !important;
+}
 .logo {
     height: 100%;
     background: #000;
