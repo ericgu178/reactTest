@@ -41,6 +41,18 @@ const { Header, Content, Footer } = Layout;
 
 
 class Main extends React.Component {
+
+    componentDidMount() {
+       console.log([
+        "%c███████╗██████╗ ██╗ ██████╗ ██████╗ ██╗   ██╗ ██╗███████╗ █████╗ ",
+        "██╔════╝██╔══██╗██║██╔════╝██╔════╝ ██║   ██║███║╚════██║██╔══██╗",
+        "█████╗  ██████╔╝██║██║     ██║  ███╗██║   ██║╚██║    ██╔╝╚█████╔╝",
+        "██╔══╝  ██╔══██╗██║██║     ██║   ██║██║   ██║ ██║   ██╔╝ ██╔══██╗",
+        "███████╗██║  ██║██║╚██████╗╚██████╔╝╚██████╔╝ ██║   ██║  ╚█████╔╝",
+        "╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝  ╚═════╝  ╚═╝   ╚═╝   ╚════╝ "
+       ].join( '\n' ),'background:#1a1a1a;color:#e0ed5e;font-weight:800;');
+    }
+
     render() {
         return (
             <Layout>
@@ -53,9 +65,7 @@ class Main extends React.Component {
                     <div className="wai_center">
                         <Menus mode="horizontal" theme="light" menus={menus} />
                     </div>
-                    <div className="wai_search">
-                        <Search />
-                    </div>
+                    <div className="wai_search"><Search /></div>
                 </Header>
                 <Content>
                     <div className="main_center" style={{ padding: 10, minHeight: 600, backgroundColor: 'rgba(0,0,0,0)' }}>

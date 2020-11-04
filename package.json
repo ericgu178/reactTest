@@ -58,6 +58,7 @@
     "react": "^16.13.1",
     "react-aplayer": "^1.0.0",
     "react-app-polyfill": "^1.0.6",
+    "react-app-rewired": "^2.1.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-images": "^1.1.7",
@@ -84,8 +85,8 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "node scripts/test.js",
     "server": "node ./server"
   },
