@@ -1,6 +1,5 @@
 // @flow
 // @jsx glam
-import glam from 'glam';
 import { postLikes } from '../../api/index';
 import { notification  } from 'antd';
 import React from 'react';

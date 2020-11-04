@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { List,Skeleton,Alert,Tooltip } from "antd";
+import { List,Skeleton,Alert } from "antd";
 import TagCloud from '../widget/tag_cloud';
 import Subscribe from '../widget/subscribe';
 import { fetchTagArticle } from "../../store/actions/search";

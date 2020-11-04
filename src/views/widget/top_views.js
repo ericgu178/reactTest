@@ -4,9 +4,9 @@ import { List, Card, Skeleton, Space } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchTopViews } from "../../store/actions/index"
+import { fetchTopViews } from "../../store/actions/index";
 import { connect } from 'react-redux';
-import { RiseOutlined } from "@ant-design/icons"
+import { RiseOutlined } from "@ant-design/icons";
 
 class TopViews extends React.Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class TopViews extends React.Component {
     }
 
     static fetch(store) {
-        return store.dispatch(fetchTopViews())
+        return store.dispatch(fetchTopViews());
     }
 
     render() {

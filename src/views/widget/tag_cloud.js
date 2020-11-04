@@ -3,9 +3,9 @@ import React from "react";
 import { Tag, Card,Tooltip } from "antd";
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchTags } from "../../store/actions/index"
+import { fetchTags } from "../../store/actions/index";
 import { connect } from 'react-redux';
-import { TagsOutlined } from "@ant-design/icons"
+import { TagsOutlined } from "@ant-design/icons";
 
 class TagCloud extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class TagCloud extends React.Component {
         }
     }
     static fetch(store) {
-        return store.dispatch(fetchTags())
+        return store.dispatch(fetchTags());
     }
 
     render() {

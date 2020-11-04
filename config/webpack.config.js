@@ -346,13 +346,13 @@ module.exports = function(webpackEnv) {
           include: paths.appSrc,
         },
         {
-          // "oneOf" will traverse all following loaders until one will
-          // match the requirements. When no loader matches it will fall
-          // back to the "file" loader at the end of the loader list.
+          // oneOf 将遍历所有后续加载器，直到一个将
+           // 符合要求。 当没有装载机匹配时，它将掉落
+           // 返回到加载程序列表末尾的“文件”加载程序
           oneOf: [
-            // "url" loader works like "file" loader except that it embeds assets
-            // smaller than specified limit in bytes as data URLs to avoid requests.
-            // A missing `test` is equivalent to a match.
+            // limit 字段代表图片打包限制，
+            // 这个限制并不是说超过了就不能打包，
+            // 而是指当图片大小小于限制时会自动转成 base64 码引用。
             {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               loader: require.resolve('url-loader'),

@@ -10,7 +10,11 @@ import thunk from 'redux-thunk'
 // 引入reducer
 import reducers from './reducers'
 
-// 创建store实例
+/**
+ * 创建状态容器
+ * 
+ * @param {string} initState 初始的状态
+ */
 const store = initState => createStore(
     reducers,
     initState,

@@ -1,7 +1,7 @@
 // 关注
 import React from "react";
 import { Card } from "antd";
-import { QrcodeOutlined } from "@ant-design/icons"
+import { QrcodeOutlined } from "@ant-design/icons";
 class Subscribe extends React.Component {
     state = {
         title: '关注我的公众号'
@@ -17,4 +17,4 @@ class Subscribe extends React.Component {
     }
 }
 
-export default Subscribe
+export default Subscribe;

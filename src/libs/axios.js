@@ -4,7 +4,12 @@ let base = 'https://api.ericgu178.com'; // 基础url
 
 axios.defaults.timeout = 15000;
 
-
+/**
+ * get请求
+ * 
+ * url 地址
+ * params 请求数据
+ */
 export const getRequest = (url, params) => {
     return axios({
         method: 'get',
@@ -17,6 +22,12 @@ export const getRequest = (url, params) => {
     });
 };
 
+/**
+ * post请求
+ * 
+ * url 地址
+ * params 请求数据
+ */
 export const postRequest = (url, params) => {
     return axios({
         method: 'post',
