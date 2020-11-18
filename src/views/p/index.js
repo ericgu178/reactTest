@@ -32,7 +32,7 @@ class P extends React.Component {
     }
 
     render() {
-        const html = this.state.html
+        const html = JSON.parse(this.state.html);
         return (
             <>
                 <div className="main_content">

@@ -27,11 +27,12 @@ export const fetchP = (params) => {
         });
         let html = marked(result.data.blog_content);
         delete result.data.blog_content;
+        delete result.data.blog_source_code;
         dispatch({
             type: 'P',
             data: { 
                 data: result.data,
-                html:html,
+                html:JSON.stringify(html),
                 loading:false
             }
         });
