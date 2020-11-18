@@ -1,5 +1,3 @@
-// build 静态文件去掉hash值，解决asset-require-hook资源问题
-const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
 const { override } = require('customize-cra');
@@ -22,7 +20,6 @@ const meCustom = () => config => {
         });
     });
 
-        // 去除版权信息 第三方的
     config.plugins.push(new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -40,7 +37,8 @@ const meCustom = () => config => {
     config.externals = {
         react: 'React',
         'react-dom': 'ReactDOM',
-        antd:'antd'
+        antd:'antd',
+        'highlight.js':'hljs'
     }
 
     config.plugins.push(new CompressionPlugin({
