@@ -37,9 +37,11 @@ const meCustom = () => config => {
     //     }
     // };
 
-    // config.externals = {
-    //     antd:'antd'
-    // }
+    config.externals = {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        antd:'antd'
+    }
 
     config.plugins.push(new CompressionPlugin({
         filename: '[path].gz[query]', // 目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
