@@ -19,6 +19,11 @@
 .main_content .left .p_content {
     height: 100%;
     width: 100%;
+    background:#121212;
+}
+.p_content h1,h2,h3,h4,h5,h6{
+    color:#fff;
+    font-weight: 900;
 }
 
 .main_content .left .p_content img{
@@ -46,12 +51,16 @@
     display:flex;
     flex-direction:column;
     padding:20px;
-    border-bottom:1px solid rgba(0,0,0,0.1);
+    border-bottom:1px solid #7d7d7d;
     cursor:pointer
 }
 
+.re:last-child {
+    border-bottom:none;
+}
+
 .re:hover {
-    background: #f8f9fa;
+    background: #1f2021;
 }
 
 .p_ra .ant-card-body {

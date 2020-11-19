@@ -1,5 +1,6 @@
 import React from "react";
 import { Card,List } from "antd";
+import { ApartmentOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchRelated } from "../../store/actions/p"
@@ -10,7 +11,7 @@ class RArticles extends React.Component {
         super(props)
         this.state = {
             ...props,
-            title: '相关文章'
+            title: <><ApartmentOutlined /> 相关文章</>
         }
     }
     static fetch(store,params) {
@@ -21,22 +22,22 @@ class RArticles extends React.Component {
         const listData = this.state.data
         return (
             <>
-                <Card title={this.state.title}>
+                <Card title={this.state.title} bordered={false}>
                 <List
                     loading={this.state.loading}
                     itemLayout="vertical"
                     size="large"
                     dataSource={listData}
                     renderItem={item => (
-                        <a href={`/p/${item.id}`}>
-                            <div className="re">
+                        <div className="re">
+                            <a href={`/p/${item.id}`}>
                                 <div style={style.title}>{item.blog_title}</div>
                                 <div style={style.content}>{item.blog_describe}</div>
                                 <div style={style.bottom}>
-                                    <div style={{color:'#000'}}>浏览 {item.reads} 次</div>
+                                    <div style={{color:'#fff'}}>浏览 {item.reads} 次</div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     )}
                 />
                 </Card>
@@ -52,7 +53,7 @@ const style = {
         borderBottom:'1px solid rgba(0,0,0,0.1)'
     },
     title:{
-        color:'#000',
+        color:'#fff',
         fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,

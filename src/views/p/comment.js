@@ -1,10 +1,11 @@
 import React from 'react';
 import { Comment,message,Tag , Card, Avatar,Tooltip,Form,Input,Button } from 'antd';
+import { CommentOutlined } from '@ant-design/icons';
 import { submitComment} from "../../api/index"
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import PropTypes from 'prop-types';
-import { fetchComments } from "../../store/actions/p"
+import { fetchComments } from "../../store/actions/p";
 import { connect } from 'react-redux';
 moment.locale('zh-cn');
 const {TextArea} = Input;
@@ -12,8 +13,8 @@ const {TextArea} = Input;
 const ExampleFatherComments = (item) => {
     return (
         <Comment
-            actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,item)}>回复</span>]}
-            author={<span style={{cursor:'pointer'}}>{item.ip} <Tag>{item.browser}</Tag><Tag>{item.os}</Tag></span>}
+            actions={[<span key="comment-nested-reply-to" style={{color:'yellow'}} onClick={item.onReply.bind(this,item)}>回复</span>]}
+            author={<span style={{cursor:'pointer',color:'#fff'}}>{item.ip} <Tag>{item.browser}</Tag><Tag>{item.os}</Tag></span>}
             avatar={
                 <Avatar
                     src={require('../../assets/images/user.jpg')}
@@ -21,7 +22,7 @@ const ExampleFatherComments = (item) => {
                 />
             }
             content={
-                <p>{item.comment_content}</p>
+                <p style={{color:'#fff'}}>{item.comment_content}</p>
             }
             datetime={
                 <Tooltip title={moment(item.create_time).format('YYYY-MM-DD HH:mm:ss')}>
@@ -38,8 +39,8 @@ const ExampleSonComments = (item) => {
     return item.children.map((i,k) => {
         return <Comment
                     key={k}
-                    actions={[<span key="comment-nested-reply-to" onClick={item.onReply.bind(this,i)}>回复</span>]}
-                    author={<span style={{cursor:'pointer'}}>{i.ip} <Tag>{i.browser}</Tag><Tag>{i.os}</Tag></span>}
+                    actions={[<span key="comment-nested-reply-to" style={{color:'yellow'}} onClick={item.onReply.bind(this,i)}>回复</span>]}
+                    author={<span style={{cursor:'pointer',color:'#fff'}}>{i.ip} <Tag>{i.browser}</Tag><Tag>{i.os}</Tag></span>}
                     avatar={
                         <Avatar
                             src={require('../../assets/images/user.jpg')}
@@ -47,7 +48,7 @@ const ExampleSonComments = (item) => {
                         />
                     }
                     content={
-                        <p>{i.comment_content}</p>
+                        <p style={{color:'#fff'}}>{i.comment_content}</p>
                     }
                     datetime={
                         <Tooltip title={moment(i.create_time).format('YYYY-MM-DD HH:mm:ss')}>
@@ -62,22 +63,20 @@ const ExampleSonComments = (item) => {
 // 回复评论框
 const Editor = ({ onChange, onSubmit, submitting, value, p }) => (
     <>
-       {p === '' ? '' : '回复:' + p} 
-      <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
-      </Form.Item>
-      <Form.Item>
-        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-          回复
-        </Button>
-      </Form.Item>
+        <span style={{color:'#fff'}}>{p === '' ? '' : '回复:' + p} </span>
+        <Form.Item>
+            <TextArea rows={4} onChange={onChange} value={value} />
+        </Form.Item>
+        <Form.Item>
+            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">回复</Button>
+        </Form.Item>
     </>
   );
 class CommentDom extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '文章评论',
+            title: <><CommentOutlined /> 文章评论</>,
             data:props.data,
             submitting: false, // 提交中的状态
             value: '', // 提交的数据内容
@@ -129,7 +128,7 @@ class CommentDom extends React.Component {
         const { data, submitting, value } = this.state;
         if (data === undefined || data.length === 0) {
             return (
-                <Card title={this.state.title}>
+                <Card title={this.state.title} bordered={false}>
                 <Comment
                     avatar={
                         <Avatar
@@ -156,7 +155,7 @@ class CommentDom extends React.Component {
             )
         })
         return (
-            <Card title={this.state.title}>
+            <Card title={this.state.title} bordered={false}>
                 {render}
                 <Comment
                     avatar={

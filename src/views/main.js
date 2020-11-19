@@ -72,7 +72,7 @@ class Main extends React.Component {
                         <Router />
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center',fontSize:'18px','color':'#fff', backgroundColor: 'rgba(0,0,0,0.8)' }}>
+                <Footer style={{ textAlign: 'center',fontSize:'18px','color':'#fff', backgroundColor: '#121212' }}>
                     © 2019 - 2020 Copyright
                     <br></br>
                     <a href="." style={{color:'#fff'}}>EricGU178个人博客 All Rights Reserved.</a>

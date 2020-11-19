@@ -43,8 +43,8 @@ class P extends React.Component {
                                 <Typography>
                                     <Title level={1} type="warning" >{this.state.data.blog_title}</Title>
                                     <Space>
-                                        <Space><ClockCircleOutlined />{moment(this.state.data.create_time).fromNow()}</Space>
-                                        <Space><EyeOutlined />{this.state.data.reads}</Space>
+                                        <Space style={{color:'#fff'}}><ClockCircleOutlined />{moment(this.state.data.create_time).fromNow()}</Space>
+                                        <Space style={{color:'#fff'}}><EyeOutlined />{this.state.data.reads}</Space>
                                     </Space>
                                     <Divider />
                                     <Paragraph>
@@ -77,8 +77,9 @@ class P extends React.Component {
 }
 const styles = {
     left: {
-        background: '#fff',
+        background: '#121212',
         padding: '2vh',
+        color:'yellow'
     }
 }
 const mapStateToProps = (state) => ({

@@ -23,7 +23,6 @@ class SearchDom extends React.Component {
                         outline: 'none',
                         color: '#fff'
                     }}
-                    onPressEnter={this.onSearch.bind(this)}
                     onSearch={this.onSearch.bind(this)}
                 />
             </>

@@ -39,7 +39,7 @@ class list extends React.Component {
     render() {
         const listData = this.state.listData;
         const IconText = ({ icon, text }) => (
-            <Space>
+            <Space style={{color:'#fff'}}>
                 {React.createElement(icon)}
                 {text}
             </Space>
@@ -59,7 +59,6 @@ class list extends React.Component {
                     dataSource={listData}
                     renderItem={(item,index) => (
                         <Skeleton loading={this.state.contentLoading} title active avatar >
-                            <a href={item.href} key={index}>
                             <List.Item
                                 className="list"
                                 actions={[
@@ -77,12 +76,13 @@ class list extends React.Component {
                                     </div>
                                 }
                             >
+                                <a href={item.href} key={index}>
                                 <List.Item.Meta
-                                    title={<span style={{ cursor: 'pointer', color: '#000', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
+                                    title={<span style={{ cursor: 'pointer', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
                                     description={item.description}
                                 />
+                                </a>
                             </List.Item>
-                            </a>
                         </Skeleton>
                     )}
                 />

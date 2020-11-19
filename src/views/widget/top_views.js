@@ -12,7 +12,7 @@ class TopViews extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '点击排行',
+            title: <><RiseOutlined/> 点击排行</>,
             ...props
         }
     }
@@ -24,7 +24,7 @@ class TopViews extends React.Component {
     render() {
         return (
             <div className="widget" style={styles.topviews}>
-                <Card title={<><RiseOutlined/> {this.state.title}</>} bordered={false}>
+                <Card title={this.state.title} bordered={false}>
                     <Skeleton loading={this.state.loading}>
                         <List
                             itemLayout="horizontal"
@@ -34,7 +34,7 @@ class TopViews extends React.Component {
                                 <List.Item
                                     key={item.blog_title}
                                     actions={[
-                                        <Space key='2'>
+                                        <Space key='2' style={{color:'#fff'}}>
                                             {<EyeOutlined />}
                                             {item.reads}
                                         </Space>
@@ -42,7 +42,8 @@ class TopViews extends React.Component {
                                 >
                                     <List.Item.Meta
                                         style={{ cursor: 'pointer' }}
-                                        title={item.blog_title.length > 40 ? item.blog_title.substr(0, 40) + '...' : item.blog_title}
+                                        title={
+                                            <span style={{color:'#fff' }}>{item.blog_title.length > 40 ? item.blog_title.substr(0, 40) + '...' : item.blog_title}</span>}
                                     />
                                 </List.Item>
                                 </a>

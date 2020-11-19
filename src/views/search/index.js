@@ -16,10 +16,6 @@ class index extends React.Component {
     static async fetch(store,query) {
         await store.dispatch(fetchSearch(query))
     }
-
-    toP(item) {
-        window.location.href = `/p/${item.id}`
-    }
     
     render() {
         const listData = this.state.data;
@@ -32,20 +28,22 @@ class index extends React.Component {
                     type="warning"
                 />
                 <List
-                    style={{background:'#fff',marginTop:'20px'}}
+                    style={{background:'#121212',marginTop:'20px'}}
                     itemLayout="vertical"
                     size="large"
                     loading={this.state.loading}
                     dataSource={listData}
                     renderItem={item => (
                         <Skeleton loading={this.state.loading} active>
-                        <div className="re" onClick={this.toP.bind(this,item)}>
+                        <div className="re">
+                            <a href={`/p/${item.id}`} key={index}>
                             <div style={style.title}>{item.blog_title}</div>
                             <div style={style.content}>{item.blog_describe}</div>
                             <div style={style.bottom}>
                                 <div>阅读 {item.reads}次</div>
                                 <div>发布时间 {item.create_time}</div>
                             </div>
+                            </a>
                         </div>
                         </Skeleton>
                     )}
@@ -59,10 +57,10 @@ const style = {
         display:'flex',
         flexDirection:'column',
         padding:'10px',
-        borderBottom:'1px solid rgba(0,0,0,0.1)'
+        borderBottom:'1px solid #7d7d7d'
     },
     title:{
-        color:'#000',
+        color:'#fff',
         fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,
@@ -74,7 +72,7 @@ const style = {
         WebkitLineClamp: 4,
         WebkitBoxOrient: 'vertical',
         wordWrap:'break-word',
-        color:'#6c757d',
+        color:'#7d7d7d',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         fontSize:'15px'
@@ -83,7 +81,8 @@ const style = {
         marginTop:'10px',
         display:'flex',
         justifyContent:'space-between',
-        fontSize:'16px'
+        fontSize:'16px',
+        color:'#999'
     }
 }
 

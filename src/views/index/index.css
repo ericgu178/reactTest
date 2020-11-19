@@ -16,9 +16,12 @@
     height: 100%;
 }
 .list {
-    background: #fff;
+    background: #121212;
     cursor: pointer
 }
 .list:hover {
-    background: #f8f9fa;
+    background: #1f2021;
+}
+.ant-list-item-meta-description {
+    color:#7d7d7d;
 }

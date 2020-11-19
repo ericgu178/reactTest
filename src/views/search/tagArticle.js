@@ -35,23 +35,23 @@ class index extends React.Component {
                         type="success"
                     />
                     <List
-                        style={{background:'#fff',marginTop:'20px'}}
+                        style={{background:'#121212',marginTop:'20px'}}
                         itemLayout="vertical"
                         size="large"
                         loading={this.state.loading}
                         dataSource={listData}
                         renderItem={(item,index) => (
                             <Skeleton loading={this.state.loading} active>
-                                <a href={`/p/${item.id}`} key={index}>
-                                    <div className="re">
-                                        <div style={style.title}>{item.blog_title}</div>
-                                        <div style={style.content}>{item.blog_describe}</div>
-                                        <div style={style.bottom}>
-                                            <div style={{color:'#000'}}>浏览 {item.reads} 次</div>
-                                            <div style={{color:'#000'}}>{moment(item.create_time).fromNow()} 发布</div>
-                                        </div>
+                                <div className="re">
+                                    <a href={`/p/${item.id}`} key={index}>
+                                    <div style={style.title}>{item.blog_title}</div>
+                                    <div style={style.content}>{item.blog_describe}</div>
+                                    <div style={style.bottom}>
+                                        <div>浏览 {item.reads} 次</div>
+                                        <div>{moment(item.create_time).fromNow()} 发布</div>
                                     </div>
-                                </a>
+                                    </a>
+                                </div>
                             </Skeleton>
                         )}
                     />
@@ -72,7 +72,7 @@ const style = {
         borderBottom:'1px solid rgba(0,0,0,0.1)'
     },
     title:{
-        color:'#000',
+        color:'#fff',
         fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,
@@ -93,7 +93,8 @@ const style = {
         marginTop:'10px',
         display:'flex',
         justifyContent:'space-between',
-        fontSize:'16px'
+        fontSize:'16px',
+        color:'#999'
     }
 }
 

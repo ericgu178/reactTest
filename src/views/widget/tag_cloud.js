@@ -11,7 +11,7 @@ class TagCloud extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '标签云',
+            title: <><TagsOutlined /> 标签云</>,
             ...props
         }
     }
@@ -31,7 +31,7 @@ class TagCloud extends React.Component {
         })
         return (
             <div className="widget">
-                <Card title={<><TagsOutlined /> {this.state.title}</>} bordered={false}>
+                <Card title={this.state.title} bordered={false}>
                     {tags}
                 </Card>
             </div>
