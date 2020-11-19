@@ -34,7 +34,7 @@ class Archive extends React.Component {
         return (
             <>
                 <div className="main_content" style={{ minHeight: '80vh' }}>
-                    <div className="left" style={{ display: 'flex', background: '#fff', padding: '2vh', width: '100%', margin: '0 auto' }}>
+                    <div className="left" style={{ display: 'flex', background: '#121212', padding: '2vh', width: '100%', margin: '0 auto' }}>
                         <div style={style.left}>
                             {date.map(item => (<div key={item} style={{
                                 cursor: 'pointer',

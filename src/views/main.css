@@ -15,7 +15,7 @@ a {
 
 .logo {
     height: 100%;
-    background: #000;
+    background: #121212;
     font-weight: bold;
     position: absolute;
     top:0;
@@ -118,8 +118,8 @@ iframe {
     color:#999;
 }
 .ant-pagination-item-ellipsis {
-    color:#999
+    color:#999 !important;
 }
 .ant-pagination-options-quick-jumper {
-    color:#999
+    color:#999;
 }
