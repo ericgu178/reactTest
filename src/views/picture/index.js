@@ -70,7 +70,7 @@ class index extends React.Component {
                         </>
                     }
                 >
-                    <Meta title={item.picture_title}/>
+                    <Meta title={<span style={{color:'#fff'}}>{item.picture_title}</span>} />
                 </Card>
             )
         })
