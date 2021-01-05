@@ -78,7 +78,7 @@ class list extends React.Component {
                             >
                                 <a href={item.href} key={index}>
                                 <List.Item.Meta
-                                    title={<span style={{ cursor: 'pointer', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
+                                    title={<span style={{ cursor: 'pointer', color: '#c9d1d9', fontSize: '20px', fontWeight: 'bold' }}>{item.title}</span>}
                                     description={item.description}
                                 />
                                 </a>

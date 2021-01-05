@@ -72,7 +72,7 @@ const style = {
         borderBottom:'1px solid rgba(0,0,0,0.1)'
     },
     title:{
-        color:'#fff',
+        color:'#c9d1d9',
         fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,

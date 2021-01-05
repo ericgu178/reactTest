@@ -60,7 +60,7 @@ const style = {
         borderBottom:'1px solid #7d7d7d'
     },
     title:{
-        color:'#fff',
+        color:'#c9d1d9',
         fontSize:'1.25rem',
         marginBottom: '.5rem',
         fontWeight: 600,

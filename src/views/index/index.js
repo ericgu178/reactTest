@@ -4,6 +4,7 @@ import List from './list';
 import TopViews from '../widget/top_views';
 import TagCloud from '../widget/tag_cloud';
 import Subscribe from '../widget/subscribe';
+import Miniprogram from '../widget/miniprogram';
 import { pv } from '../../api/index';
 import './index.css';
 
@@ -31,6 +32,7 @@ class index extends React.Component {
                         <TopViews />
                         <TagCloud />
                         <Subscribe />
+                        <Miniprogram />
                     </div>
                 </div>
             </>
