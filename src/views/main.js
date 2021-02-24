@@ -77,7 +77,7 @@ class Main extends React.Component {
                     <br></br>
                     <a href="." style={{color:'#fff'}}>EricGU178个人博客 All Rights Reserved.</a>
                     <br></br>
-                    备案号: 冀ICP备19024869号-1
+                    备案号: <a style={{color:'#fff'}} href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">冀ICP备19024869号-1</a>
                 </Footer>
             </Layout>
         )
